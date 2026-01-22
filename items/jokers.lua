@@ -53,7 +53,7 @@ SMODS.Joker { -- Sajam
 SMODS.Joker { -- Sajam (Twitch)
     key = "SajamTwitch",
     loc_txt = {
-        ['name'] = 'Sajam (Twitch)',
+        ['name'] = 'Sajam {C:dark_edition}(Twitch)',
         ['text'] = {
             [1] = '{X:mult,C:white} +1 {} Mult for every',
             [2] = '{C:attention}10 viewers{} on {C:dark_edition}Twitch',
@@ -78,7 +78,7 @@ SMODS.Joker { -- Sajam (Twitch)
     perishable_compat = true,
     unlocked = true,
     discovered = true,
-    atlas = 'fgc_sajam',
+    atlas = 'fgc_sajamtwitch',
     fgc_sajam = true,
     config = {
         extra = {
@@ -165,6 +165,13 @@ SMODS.Joker {
 SMODS.Atlas {
     key = "fgc_sajam",
     path = "fgc_j_sajam.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = "fgc_sajamtwitch",
+    path = "fgc_j_sajamtwitch.png",
     px = 71,
     py = 95
 }
