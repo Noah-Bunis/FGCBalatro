@@ -1,5 +1,5 @@
 local activeviewers = 0
-local activegame_name = ""
+local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
 SMODS.Joker { -- Sajam
@@ -98,7 +98,9 @@ SMODS.Joker { -- Sajam (Twitch)
         if context.joker_main then
             return {
                 color = G.C.RED,
-                message = "+" .. card.ability.extra.perviewer,
+                sound = "fgc_stevemyarm",
+                pitch = 1,
+                message = "+" .. card.ability.extra.viewercount,
                 mult_mod = card.ability.extra.viewercount
             }
         end
@@ -113,7 +115,7 @@ SMODS.Joker {
     loc_txt = {
         ['name'] = 'Dusty Cabinet',
         ['text'] = {
-            [1] = '{X:chips,C:white} +1 {} Chip for every person playing',
+            [1] = '{X:chips,C:white} +1 {} Chip for each person playing',
             [2] = '{X:default,C:edition}#1#{} on {C:dark_edition}Steam',
             [3] = '{C:inactive}(resets every blind)',
             [4] = '{C:inactive}Currently {C:blue}+#2#{C:inactive} Chips'
@@ -132,8 +134,8 @@ SMODS.Joker {
     atlas = 'fgc_sajam',
     config = {
         extra = {
-            name = "",
-            activegame_players
+            name = activegame_name,
+            activegame_players = activegame_players
         }
     },
     loc_vars = function(self, info_queue, center)
@@ -239,7 +241,7 @@ function recheckSteam(please)
             {appid=1342260,name="Samurai Shodown"}, {appid=1076550,name="Samurai Shodown V Special"},
             {appid=544750,name="Soulcalibur VI"},
             {appid=1372280,name="Melty Blood: Type Lumina"}, {appid=411370,name="Melty Blood Actress Again Current Code"},
-            {appid=2237110,name="UNDER NIGHT IN-BIRTH II Sys:Celes"}, {appid=801630,name="UNDER NIGHT IN-BIRTH Exe:Late[cl-r]"},
+            {appid=2076010,name="UNDER NIGHT IN-BIRTH II Sys:Celes"}, {appid=801630,name="UNDER NIGHT IN-BIRTH Exe:Late[cl-r]"},
             {appid=2157560,name="Granblue Fantasy Versus: Rising"},
             {appid=245170,name="Skullgirls 2nd Encore"},
             {appid=383980,name="Rivals of Aether"}, {appid=2217000,name="Rivals of Aether II"},
@@ -255,7 +257,8 @@ function recheckSteam(please)
             {appid=2634890,name="MARVEL vs. CAPCOM Fighting Collection: Arcade Classics"}, {appid=1685750,name="Capcom Fighting Collection"}, {appid=2400430,name="Capcom Fighting Collection 2"},
             {appid=357190,name="Ultimate Marvel vs. Capcom 3"}, {appid=493840,name="Marvel vs. Capcom: Infinite"},
             {appid=1742020,name="Idol Showdown"}, {appid=1999500,name="Blazing Strike"}, {appid=2456420,name="HUNTER×HUNTER NEN×IMPACT"}, {appid=1420350,name="Fraymakers"},
-            {appid=586200,name="Street Fighter 30th Anniversary Collection"}, {appid=2313020,name="Umamusume: Pretty Derby - Party Dash"},
+            {appid=586200,name="Street Fighter 30th Anniversary Collection"}, {appid=2313020,name="Umamusume: Pretty Derby - Party Dash"}, {appid=1719690, name="MerFight"}, {appid=3041800, name="Scramble Heart City"},
+            {appid=627270,name="Injustice™ 2"}, {appid=242700,name="Injustice: Gods Among Us Ultimate Edition"}, {appid=237110,name="Mortal Kombat Komplete Edition"}
         }
         local game = games[math.random(#games)]
         activegame_name = game.name
@@ -274,4 +277,3 @@ function recheckSteam(please)
         end
     end
 end
-
