@@ -6,7 +6,13 @@ return {
                 text = {"({V:1}lvl.#1#{}) Level up", "{C:attention}#2#", "{C:mult}+#3#{} Mult and",
                         "{C:chips}+#4#{} chips"}
             }
-        }
+        },
+        Tag = {
+            tag_fgc_activetag = {
+                name = "Active Tag",
+                text = {"Retriggers the next activated {C:attention}Joker{}"}
+            }
+        },  
     },
     misc = {
         poker_hand_descriptions = {

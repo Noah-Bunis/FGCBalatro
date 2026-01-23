@@ -97,7 +97,7 @@ SMODS.Joker { -- Sajam (Twitch)
         card.ability.extra.viewercount = activeviewers * card.ability.extra.perviewer / 10
         if context.joker_main then
             return {
-                color = G.C.RED,
+                colour = G.C.RED,
                 sound = "fgc_stevemyarm",
                 pitch = 1,
                 message = "+" .. card.ability.extra.viewercount,
@@ -150,7 +150,7 @@ SMODS.Joker {
         card.ability.extra.name = activegame_name
         if context.joker_main then
             return {
-                color = G.C.BLUE,
+                colour = G.C.BLUE,
                 message = "+" .. card.ability.extra.activegame_players,
                 chip_mod = card.ability.extra.activegame_players
             }
@@ -164,6 +164,38 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "Active Tag",
+    loc_txt = {
+        ['name'] = 'Active Tag',
+        ['text'] = {
+            [1] = 'Retriggers the next activated {C:attention}Joker{}'
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    unlocked = true,
+    discovered = true,
+    config = { extra = { repetitions = 1 } },
+    atlas = 'fgc_activetag',
+    activated = false,
+    in_pool = function(self,args)
+        return false
+    end,
+    calculate = function(self, card, context)
+        if context.retrigger_joker_check then
+            return { 
+                repetitions = 1,
+                colour = G.C.GREEN,
+                message = "Tag!",
+                SMODS.destroy_cards(card, nil, nil, true),
+            }
+        end
+    end
+}
+    
+
 SMODS.Atlas {
     key = "fgc_sajam",
     path = "fgc_j_sajam.png",
@@ -174,6 +206,13 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "fgc_sajamtwitch",
     path = "fgc_j_sajamtwitch.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas {
+    key = "fgc_activetag",
+    path = "fgc_j_activetag.png",
     px = 71,
     py = 95
 }

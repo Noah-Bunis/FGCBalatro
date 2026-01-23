@@ -1,5 +1,7 @@
-BalatroMahjong = {}
-
+FGCBalatro = {}
+SMODS.current_mod.optional_features = {
+    retrigger_joker = true,
+post_trigger = true}
 assert(SMODS.load_file("globals.lua"))()
 
 --[[

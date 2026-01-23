@@ -1,10 +1,11 @@
 SMODS.Consumable {
     key = "thelocals",
     set = "Planet",
+    atlas = "fgc_locals",
     unlocked = true,
     discovered = true,
     cost = 3,
-    pos = { x = 2, y = 3 },
+    pos = { x = 0, y = 0 },
     config = { hand_type = 'fgc_HalfCircle' },
     loc_vars = function(self, info_queue, card)
         return {
@@ -17,4 +18,11 @@ SMODS.Consumable {
             }
         }
     end
+}
+
+SMODS.Atlas {
+    key = "fgc_locals",
+    path = "fgc_c_locals.png",
+    px = 71,
+    py = 95
 }
