@@ -2,6 +2,40 @@ local activeviewers = 0
 local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
+
+SMODS.Joker {
+    key = "BrianF",
+    loc_txt = {
+        ['name'] = 'Brian_F',
+        ['text'] = {
+            [1] = "Retrigger all played {C:attention}Stone{} cards",
+            [2] = "All {C:attention}Stone{} cards are {C:attention}Lucky cards"
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    pos = {x=0,y=0},
+    cost = 20,
+    rarity = 3,
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_brian_f',
+    config = { extra = { repetitions = 2} },
+    calculate = function(self, card, context)
+        if context.repetition and context.cardarea == G.play and context.other_card.config.center.key == "m_stone" then
+            return {
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+        if context.check_enhancement and context.other_card.config.center.key == "m_stone" then
+            return {
+                m_lucky = true
+            }
+        end
+    end
+}
+
 SMODS.Joker { -- Sajam
     key = "Sajam",
     loc_txt = {
@@ -14,19 +48,9 @@ SMODS.Joker { -- Sajam
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 0,
-        y = 0
-    },
-    display_size = {
-        w = 71 * 1,
-        h = 95 * 1
-    },
+    pos = {x=0,y=0},
     cost = 6,
     rarity = 3,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'fgc_sajam',
@@ -63,19 +87,9 @@ SMODS.Joker { -- Sajam (Twitch)
             [1] = 'Unlocked by default.'
         }
     },
-    pos = {
-        x = 0,
-        y = 0
-    },
-    display_size = {
-        w = 71 * 1,
-        h = 95 * 1
-    },
+    pos = {x=0,y=0},
     cost = 7,
     rarity = 3,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'fgc_sajamtwitch',
@@ -91,7 +105,6 @@ SMODS.Joker { -- Sajam (Twitch)
             vars = {center.ability.extra.perviewer, center.ability.extra.viewercount}
         }
     end,
-
     calculate = function(self, card, context)
         recheckTwitch()
         card.ability.extra.viewercount = activeviewers * card.ability.extra.perviewer / 10
@@ -105,7 +118,7 @@ SMODS.Joker { -- Sajam (Twitch)
             }
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            recheckTwitch("please")
+            recheckTwitch(true)
         end
     end
 }
@@ -126,9 +139,6 @@ SMODS.Joker {
     },
     cost = 4,
     rarity = 2,
-    blueprint_compat = true,
-    eternal_compat = true,
-    perishable_compat = true,
     unlocked = true,
     discovered = true,
     atlas = 'fgc_sajam',
@@ -143,7 +153,6 @@ SMODS.Joker {
             vars = {center.ability.extra.name, center.ability.extra.activegame_players}
         }
     end,
-
     calculate = function(self, card, context)
         recheckSteam()
         card.ability.extra.activegame_players = activegame_players
@@ -156,7 +165,7 @@ SMODS.Joker {
             }
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
-            recheckSteam("please")
+            recheckSteam(true)
             return {
                 message = localize('k_reset')
             }
@@ -179,7 +188,6 @@ SMODS.Joker {
     discovered = true,
     config = { extra = { repetitions = 1 } },
     atlas = 'fgc_activetag',
-    activated = false,
     in_pool = function(self,args)
         return false
     end,
@@ -217,11 +225,16 @@ SMODS.Atlas {
     py = 95
 }
 
-G.last_update_time = 0
-function recheckTwitch(please) -- THANK YOU YAHIAMICE FOR THIS DOCUMENTATION GO SUBSCRIBE TO HIM
+SMODS.Atlas{
+	key = 'fgc_brian_f',
+	path = 'fgc_j_brian_f.png',
+	px = 71, py = 95
+}
 
-    if ((os.time() - G.last_update_time) >= 90) or please == "please" then
-        G.last_update_time = os.time()
+G.last_update_time_twitch = 0
+function recheckTwitch(forceRecheck) -- THANK YOU YAHIAMICE FOR THIS DOCUMENTATION GO SUBSCRIBE TO HIM
+    if ((os.time() - G.last_update_time_twitch) >= 90) or forceRecheck then
+        G.last_update_time_twitch = os.time()
         local json = require "json"
         local succ, https = pcall(require, "SMODS.https")
         local url = "https://gql.twitch.tv/gql"
@@ -257,9 +270,10 @@ function recheckTwitch(please) -- THANK YOU YAHIAMICE FOR THIS DOCUMENTATION GO 
     end
 end
 
-function recheckSteam(please)
-    if ((os.time() - G.last_update_time) >= 90) or please == "please" then
-        G.last_update_time = os.time()
+G.last_update_time_steam = 0
+function recheckSteam(forceRecheck)
+    if ((os.time() - G.last_update_time_steam) >= 90) or forceRecheck then
+        G.last_update_time_steam = os.time()
 
         local json = require "json"
         local succ, https = pcall(require, "SMODS.https")
@@ -286,7 +300,7 @@ function recheckSteam(please)
             {appid=2634890,name="MARVEL vs. CAPCOM Fighting Collection: Arcade Classics"}, {appid=1685750,name="Capcom Fighting Collection"}, {appid=2400430,name="Capcom Fighting Collection 2"},
             {appid=357190,name="Ultimate Marvel vs. Capcom 3"}, {appid=493840,name="Marvel vs. Capcom: Infinite"},
             {appid=1742020,name="Idol Showdown"}, {appid=1999500,name="Blazing Strike"}, {appid=2456420,name="HUNTER×HUNTER NEN×IMPACT"}, {appid=1420350,name="Fraymakers"},
-            {appid=586200,name="Street Fighter 30th Anniversary Collection"}, {appid=2313020,name="Umamusume: Pretty Derby - Party Dash"}, {appid=1719690, name="MerFight"}, {appid=3041800, name="Scramble Heart City"},
+            {appid=586200,name="Street Fighter 30th Anniversary Collection"}, {appid=2313020,name="Umamusume: Pretty Derby - Party Dash"}, {appid=1719690, name="MerFight"},
             {appid=627270,name="Injustice™ 2"}, {appid=242700,name="Injustice: Gods Among Us Ultimate Edition"}, {appid=237110,name="Mortal Kombat Komplete Edition"}, {appid=2212330,name="Your Only Move Is HUSTLE"},
             {appid=2492040,name="FATAL FURY: City of the Wolves"},{appid=366240,name="GAROU: MARK OF THE WOLVES"},{appid=3454980,name="Mortal Kombat: Legacy Kollection"},
             {appid=222420,name="THE KING OF FIGHTERS '98 ULTIMATE MATCH FINAL EDITION"},{appid=661990,name="Arcana Heart 3 LOVEMAX SIXSTARS!!!!!! XTEND"},{appid=244730,name="Divekick"}
