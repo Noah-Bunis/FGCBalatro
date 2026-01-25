@@ -2,14 +2,56 @@ local activeviewers = 0
 local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
-
+SMODS.Joker {
+    key = "Woshige",
+    loc_txt = {
+        ['name'] = 'Woshige',
+        ['text'] = {
+            [1] = "{X:mult,C:white} X#1# {} Mult",
+            [2] = "{C:attention}During scoring{}, {C:green}#2# in #3#{} chance that",
+            [3] = "{C:red,E:2}Woshige stands up too early"
+        },
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
+        }
+    },
+    pos = {x=0,y=0},
+    cost = 5,
+    rarity = 3,
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_woshige',
+    config = { extra = { odds = 7, Xmult = 4 } },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.odds, 'fgc_Woshige')
+        return { vars = { card.ability.extra.Xmult, numerator, denominator } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            if SMODS.pseudorandom_probability(card, 'fgc_Woshige', 1, card.ability.extra.odds) then
+                SMODS.destroy_cards(card, nil, nil, true)
+                return {
+                    colour = G.C.RED,
+                    message = "WHAT ARE YOU STANDING UP FOR!!!",
+                    sound = "fgc_woshige2015",
+                    pitch = 1
+                }
+            end
+        end
+        if context.joker_main then
+            return {
+                xmult = card.ability.extra.Xmult
+            }
+        end
+    end
+}
 SMODS.Joker {
     key = "BrianF",
     loc_txt = {
         ['name'] = 'Brian_F',
         ['text'] = {
             [1] = "Retrigger all played {C:attention}Stone{} cards",
-            [2] = "All {C:attention}Stone{} cards are {C:attention}Lucky cards"
+            [2] = "All {C:attention}Stone{} cards are {C:attention}Gold{} cards"
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'
@@ -30,7 +72,14 @@ SMODS.Joker {
         end
         if context.check_enhancement and context.other_card.config.center.key == "m_stone" then
             return {
-                m_lucky = true
+                m_gold = true
+            }
+        end
+        if context.selling_self then
+            return {
+                message = "...And the rage quit, let's go!",
+                sound = "fgc_andtheragequit",
+                pitch = 1,
             }
         end
     end
@@ -71,6 +120,13 @@ SMODS.Joker { -- Sajam
                 xmult = card.ability.extra.xmult
             }
         end
+        if context.selling_self then
+            return {
+                sound = "fgc_stevemyarm",
+                pitch = 1,
+                message = "STEVE MY ARM!!!"
+            }
+        end
     end
 }
 
@@ -105,16 +161,23 @@ SMODS.Joker { -- Sajam (Twitch)
             vars = {center.ability.extra.perviewer, center.ability.extra.viewercount}
         }
     end,
-    calculate = function(self, card, context)
+    update = function(self,card,dt)
         recheckTwitch()
+    end,
+    calculate = function(self, card, context)
         card.ability.extra.viewercount = activeviewers * card.ability.extra.perviewer / 10
         if context.joker_main then
             return {
                 colour = G.C.RED,
-                sound = "fgc_stevemyarm",
-                pitch = 1,
                 message = "+" .. card.ability.extra.viewercount,
                 mult_mod = card.ability.extra.viewercount
+            }
+        end
+        if context.selling_self then
+            return {
+                sound = "fgc_stevemyarm",
+                pitch = 1,
+                message = "STEVE MY ARM!!!"
             }
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
@@ -148,13 +211,15 @@ SMODS.Joker {
             activegame_players = activegame_players
         }
     },
+    update = function(self,card,dt)
+        recheckSteam()
+    end,
     loc_vars = function(self, info_queue, center)
         return {
             vars = {center.ability.extra.name, center.ability.extra.activegame_players}
         }
     end,
     calculate = function(self, card, context)
-        recheckSteam()
         card.ability.extra.activegame_players = activegame_players
         card.ability.extra.name = activegame_name
         if context.joker_main then
@@ -225,10 +290,16 @@ SMODS.Atlas {
     py = 95
 }
 
-SMODS.Atlas{
+SMODS.Atlas {
 	key = 'fgc_brian_f',
 	path = 'fgc_j_brian_f.png',
 	px = 71, py = 95
+}
+
+SMODS.Atlas {
+    key = "fgc_woshige",
+    path = "fgc_j_woshige.png",
+    px = 71, py = 95
 }
 
 G.last_update_time_twitch = 0
