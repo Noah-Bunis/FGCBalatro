@@ -8,7 +8,7 @@ SMODS.Joker {
         ['name'] = 'Woshige',
         ['text'] = {
             [1] = "{X:mult,C:white} X#1# {} Mult",
-            [2] = "{C:attention}During scoring{}, {C:green}#2# in #3#{} chance that",
+            [2] = "{C:attention}During scoring,{} {C:green}#2# in #3#{} chance that",
             [3] = "{C:red,E:2}Woshige stands up too early"
         },
         ['unlock'] = {
@@ -17,7 +17,7 @@ SMODS.Joker {
     },
     pos = {x=0,y=0},
     cost = 5,
-    rarity = 3,
+    rarity = 2,
     unlocked = true,
     discovered = true,
     atlas = 'fgc_woshige',
@@ -58,8 +58,8 @@ SMODS.Joker {
         }
     },
     pos = {x=0,y=0},
-    cost = 20,
-    rarity = 3,
+    cost = 10,
+    rarity = 2,
     unlocked = true,
     discovered = true,
     atlas = 'fgc_brian_f',
@@ -293,7 +293,10 @@ SMODS.Atlas {
 SMODS.Atlas {
 	key = 'fgc_brian_f',
 	path = 'fgc_j_brian_f.png',
-	px = 71, py = 95
+	px = 71, py = 95,
+    atlas_table = 'ANIMATION_ATLAS',
+	frames = 202,
+	fps = 10
 }
 
 SMODS.Atlas {
