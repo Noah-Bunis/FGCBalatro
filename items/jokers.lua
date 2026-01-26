@@ -3,6 +3,35 @@ local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
 SMODS.Joker {
+    key = "TheDumpster",
+    loc_txt = {
+        ['name'] = 'The Dumpster from {C:attention}Injustice{}',
+        ['text'] = {
+            [1] = "{C:red,E:1}...people played this game for money?"
+        }
+    },
+    pos = {x=0,y=0},
+    cost = 1,
+    rarity = 1,
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_thedumpster',
+    config = {extra = {chips = -50} },
+    calculate = function(self, card, context)
+        if context.final_scoring_step then
+            return {
+                chips = card.ability.extra.chips,
+                colour = G.C.RED,
+                message = "Dumpstered!"
+            }
+        end
+        if context.selling_self then
+            return { add_tag(Tag(("tag_garbage"))) }
+        end
+    end
+}
+
+SMODS.Joker {
     key = "Woshige",
     loc_txt = {
         ['name'] = 'Woshige',
@@ -302,6 +331,12 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "fgc_woshige",
     path = "fgc_j_woshige.png",
+    px = 71, py = 95
+}
+
+SMODS.Atlas {
+    key = "fgc_thedumpster",
+    path = "fgc_j_thedumpster.png",
     px = 71, py = 95
 }
 
