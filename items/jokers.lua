@@ -3,6 +3,114 @@ local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
 SMODS.Joker {
+    key = "Jaytsu",
+    loc_txt = {
+        ['name'] = {
+            [1] = "{C:edition,s:0.6}SSR{}{s:0.6} [Don't Call Her Mambo Bro]",
+            [2] = "Jaytsu",
+        },
+        ['text'] = {
+            [1] = "{X:mult,C:white} X#1#{} mult after {C:attention}#2#{} rounds",
+            [2] = "{C:inactive}(Currently {C:attention}#3#{C:inactive}/#2#)",
+        },
+    },
+    rarity = 3,
+    cost = 8,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_jaytsu',
+    config = { extra = {Xmult = 3, train_rounds = 0, total_rounds = 2 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.Xmult, card.ability.extra.total_rounds, card.ability.extra.train_rounds }}
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
+            card.ability.extra.train_rounds = card.ability.extra.train_rounds + 1
+            return {
+                message = (card.ability.extra.train_rounds < card.ability.extra.total_rounds) and
+                    (card.ability.extra.train_rounds .. '/' .. card.ability.extra.total_rounds) or
+                    "Active!",
+                colour = G.C.DARK_EDITION
+            }
+        end
+        if context.before and (card.ability.extra.train_rounds >= card.ability.extra.total_rounds) then
+            return {
+                colour = G.C.DARK_EDITION,
+                sound = "fgc_beatrix",
+                pitch = 1,
+                message = "FRIENDSHIP TRAINING!",
+            }
+        end
+        if context.joker_main and (card.ability.extra.train_rounds >= card.ability.extra.total_rounds) then
+            return {
+                colour = G.C.DARK_EDITION,
+                xmult = card.ability.extra.Xmult,
+            }
+        end
+    end
+}
+SMODS.Joker {
+    key = "Dustloop",
+    loc_txt = {
+        ['name'] = 'Dustloop',
+        ['text'] = {
+            [1] = "This Joker gains {C:mult}+#1#{} Mult",
+            [2] = "per {C:attention}consecutive{}",
+            [3] = "scoring {C:attention}Ace{}",
+            [4] = "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+                },
+        },
+    rarity = 1,
+    cost = 6,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_dustloop',
+    config = { extra = { mult_gain = 3, mult = 0 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            if context.other_card.base.value == "Ace" then
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                return {
+                        message = "j.D",
+                        sound = "fgc_dustloop_hit",
+                        pitch = 1
+                    }
+            else
+                local last_mult = card.ability.extra.mult
+                card.ability.extra.mult = 0
+                if last_mult > 0 then
+                    return {
+                        colour = G.C.RED,
+                        message = "Dropped!",
+                        sound = "fgc_dustloop_dropped",
+                        pitch = 1
+                    }
+                end
+            end
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.selling_self then
+            return {
+                colour = G.C.RED,
+                message = "Dropped!",
+                sound = "fgc_dustloop_dropped",
+                pitch = 1
+            }
+        end
+    end
+    
+}
+
+SMODS.Joker {
     key = "TheDumpster",
     loc_txt = {
         ['name'] = 'The Dumpster from {C:attention}Injustice{}',
@@ -63,7 +171,8 @@ SMODS.Joker {
                     colour = G.C.RED,
                     message = "WHAT ARE YOU STANDING UP FOR!!!",
                     sound = "fgc_woshige2015",
-                    pitch = 1
+                    pitch = 1,
+                    volume = 0.7
                 }
             end
         end
@@ -329,6 +438,15 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+	key = 'fgc_dustloop',
+	path = 'fgc_j_dustloop.png',
+	px = 71, py = 95,
+    atlas_table = 'ANIMATION_ATLAS',
+	frames = 261,
+	fps = 29
+}
+
+SMODS.Atlas {
     key = "fgc_woshige",
     path = "fgc_j_woshige.png",
     px = 71, py = 95
@@ -337,6 +455,12 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "fgc_thedumpster",
     path = "fgc_j_thedumpster.png",
+    px = 71, py = 95
+}
+
+SMODS.Atlas { 
+    key = "fgc_jaytsu",
+    path = "fgc_j_jaytsu.png",
     px = 71, py = 95
 }
 
