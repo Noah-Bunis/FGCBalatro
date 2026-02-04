@@ -2,6 +2,53 @@ local activeviewers = 0
 local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
+
+SMODS.Joker {
+    key = "KBrad",
+    loc_txt = {
+        ['name'] = 'K-Brad',
+        ['text'] = {
+            [1] = '{C:chips}+#1#{} Chips and {C:money}+#2#{} dollars',
+            [2] = 'when playing a hand that has not been played before'
+        }
+    },
+    rarity = 1,
+    cost = 5,
+    pos = {x=0,y=1},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_kbrad_mixed',
+    config = { extra = {chips = 30, dollars = 5} },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult, card.ability.extra.dollars } }
+    end,
+    calculate = function (self, card, context)
+        if context.setting_blind then
+            play_sound("fgc_kbrad", 1, 1)
+        end
+        if context.joker_main then
+            if G.GAME.hands[context.scoring_name].played == 1 then
+                play_sound("fgc_kbrad_mixed", 1, 0.7)
+                card.children.center:set_sprite_pos({x = 0, y = 0})
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+                return {
+                    chips = card.ability.extra.chips,
+                    dollars = card.ability.extra.dollars,
+                        func = function()
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    card.children.center:set_sprite_pos({x = 0, y = 1})
+                                    G.GAME.dollar_buffer = 0
+                                    return true
+                                end
+                            }))
+                        end
+                }
+            end
+        end
+    end
+}
+
 SMODS.Joker {
     key = "Jaytsu",
     loc_txt = {
@@ -404,64 +451,6 @@ SMODS.Joker {
             }
         end
     end
-}
-    
-
-SMODS.Atlas {
-    key = "fgc_sajam",
-    path = "fgc_j_sajam.png",
-    px = 71,
-    py = 95
-}
-
-SMODS.Atlas {
-    key = "fgc_sajamtwitch",
-    path = "fgc_j_sajamtwitch.png",
-    px = 71,
-    py = 95
-}
-
-SMODS.Atlas {
-    key = "fgc_activetag",
-    path = "fgc_j_activetag.png",
-    px = 71,
-    py = 95
-}
-
-SMODS.Atlas {
-	key = 'fgc_brian_f',
-	path = 'fgc_j_brian_f.png',
-	px = 71, py = 95,
-    atlas_table = 'ANIMATION_ATLAS',
-	frames = 202,
-	fps = 10
-}
-
-SMODS.Atlas {
-	key = 'fgc_dustloop',
-	path = 'fgc_j_dustloop.png',
-	px = 71, py = 95,
-    atlas_table = 'ANIMATION_ATLAS',
-	frames = 261,
-	fps = 29
-}
-
-SMODS.Atlas {
-    key = "fgc_woshige",
-    path = "fgc_j_woshige.png",
-    px = 71, py = 95
-}
-
-SMODS.Atlas {
-    key = "fgc_thedumpster",
-    path = "fgc_j_thedumpster.png",
-    px = 71, py = 95
-}
-
-SMODS.Atlas { 
-    key = "fgc_jaytsu",
-    path = "fgc_j_jaytsu.png",
-    px = 71, py = 95
 }
 
 G.last_update_time_twitch = 0

@@ -27,3 +27,13 @@ SMODS.Sound {
     key = "fgc_beatrix",
     path = "fgc_beatrix.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_kbrad",
+    path = "fgc_kbrad.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_kbrad_mixed",
+    path = "fgc_kbrad_mixed.wav"
+}
