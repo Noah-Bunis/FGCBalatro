@@ -12,7 +12,19 @@ return {
                 name = "Active Tag",
                 text = {"Retriggers the next activated {C:attention}Joker{}"}
             }
-        },  
+        },
+        Blind = {
+            bl_fgc_beast = {
+                name = "The Beast",
+                text = {"UMEHARA GA!", "TSUKAMAETE!","UMEHARA GA!","GAMEN HASHI!","BAASUTO YONDE!","MADA HAIRU!","UMEHARA GA!","...CHIKAZUITE!","UMEHARA GA KIMETAAAA!!!!!!!"}
+            }
+        },
+        Other = {
+            fgc_modern_seal = {
+                name = "Modern Seal",
+                text = {"Card is treated as {C:attention}Lucky{}", "Score {C:red}10% less{} {C:blue}Chips"}
+            }
+        }  
     },
     misc = {
         poker_hand_descriptions = {
@@ -20,6 +32,9 @@ return {
         },
         poker_hands = {
             ["fgc_HalfCircle"] = "Half Circle"
+        },
+        labels = {
+            fgc_modern_seal = "Modern Seal"
         }
     }
 }

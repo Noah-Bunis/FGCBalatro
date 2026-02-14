@@ -20,11 +20,11 @@ SMODS.Joker {
     atlas = 'fgc_kbrad_mixed',
     config = { extra = {chips = 30, dollars = 5} },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult, card.ability.extra.dollars } }
+        return { vars = { card.ability.extra.chips, card.ability.extra.dollars } }
     end,
     calculate = function (self, card, context)
         if context.setting_blind then
-            play_sound("fgc_kbrad", 1, 1)
+            play_sound("fgc_kbrad", 1, 1.2)
         end
         if context.joker_main then
             if G.GAME.hands[context.scoring_name].played == 1 then

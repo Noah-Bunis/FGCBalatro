@@ -37,3 +37,13 @@ SMODS.Sound {
     key = "fgc_kbrad_mixed",
     path = "fgc_kbrad_mixed.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_daigo",
+    path = "fgc_daigo.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_umeshoryu",
+    path = "fgc_umeshoryu.wav"
+}

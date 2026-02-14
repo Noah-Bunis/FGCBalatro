@@ -63,3 +63,15 @@ SMODS.Atlas {
 	frames = 30,
 	fps = 24
 }
+
+SMODS.Atlas {
+    key = "fgc_daigo",
+    path = "fgc_bl_daigo.jpg",
+    px = 343, py = 343
+}
+
+SMODS.Atlas {
+    key = "fgc_modern",
+    path = "fgc_e_modern.png",
+    px=71, py=95
+}
