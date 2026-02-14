@@ -27,3 +27,22 @@ SMODS.Blind {
         end
     end
 }
+
+SMODS.Blind {
+    key = "willitkill",
+    dollars = 5,
+    mult = 2,
+    loc_txt = {
+        name = 'Will It Kill?',
+        text = {
+            'Alrighty then chatroom...',
+        }
+    },
+    boss = {  min = 1 },
+    set_blind= function(self)
+        G.FUNCS.overlay_menu{
+                definition = create_UIBox_custom_video1("sf3", "back"),
+                config = {no_esc = true}
+            }
+    end,
+}
