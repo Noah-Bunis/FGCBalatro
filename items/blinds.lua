@@ -41,7 +41,7 @@ SMODS.Blind {
     boss = {  min = 1 },
     set_blind= function(self)
         G.FUNCS.overlay_menu{
-                definition = create_UIBox_custom_video1("sf3", "back"),
+                definition = create_UIBox_willitkill("sf3", "back", 8.45, 20, false),
                 config = {no_esc = true}
             }
     end,
