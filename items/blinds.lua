@@ -33,12 +33,14 @@ SMODS.Blind {
     dollars = 5,
     mult = 2,
     loc_txt = {
-        name = 'Will It Kill?',
+        name = 'WILL IT KILL...?',
         text = {
             'Alrighty then chatroom...',
         }
     },
     boss = {  min = 1 },
+    boss_colour = HEX("590a0a"),
+    atlas = "fgc_sajam",
     set_blind= function(self)
         G.FUNCS.overlay_menu{
                 definition = create_UIBox_willitkill("sf3", "back", 8.45, 20, false),

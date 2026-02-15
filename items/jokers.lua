@@ -78,12 +78,12 @@ SMODS.Joker {
                 message = (card.ability.extra.train_rounds < card.ability.extra.total_rounds) and
                     (card.ability.extra.train_rounds .. '/' .. card.ability.extra.total_rounds) or
                     "Active!",
-                colour = G.C.DARK_EDITION
+                colour = HEX(#f27cfb)
             }
         end
         if context.before and (card.ability.extra.train_rounds >= card.ability.extra.total_rounds) then
             return {
-                colour = G.C.DARK_EDITION,
+                colour = HEX(#f27cfb),
                 sound = "fgc_beatrix",
                 pitch = 1,
                 message = "FRIENDSHIP TRAINING!",
