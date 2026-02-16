@@ -1,8 +1,3 @@
-local wik_videos = {
-    {filename = "sf3", title = "Street Fighter 3: Third Strike (credit: Spiraler)", pausetime = 8.5, totaltime = 20, kills = false},
-    {filename = "gbvsr", title = "Granblue Fantasy Versus: Rising (credit: Light)", pausetime = 2.5, totaltime = 21, kills = true},
-}
-
 SMODS.Blind {
     key = "beast",
     dollars = 5,
@@ -34,9 +29,11 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
-    key = "willitkill",
+    key = "willitkill_blind",
     dollars = 5,
     mult = 2,
+    unlocked = true,
+    discovered = true,
     loc_txt = {
         name = 'WILL IT KILL...?',
         text = {
@@ -45,9 +42,9 @@ SMODS.Blind {
     },
     boss = {  min = 1 },
     boss_colour = HEX("590a0a"),
-    atlas = "fgc_sajam",
+    atlas = "fgc_t_sajam",
     set_blind= function(self)
-        local video = wik_videos[math.random(#wik_videos)]
+        local video = WIK_CLIPS[math.random(#WIK_CLIPS)]
         G.FUNCS.overlay_menu{
                 definition = create_UIBox_willitkill(video.filename, video.title, video.pausetime, video.totaltime, video.kills),
                 config = {no_esc = true}

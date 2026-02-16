@@ -75,3 +75,16 @@ SMODS.Atlas {
     path = "fgc_e_modern.png",
     px=71, py=95
 }
+
+SMODS.Atlas {
+    key = "fgc_t_sajam",
+    path = "fgc_t_sajam.png",
+    px=32, py=32
+}
+
+SMODS.Atlas {
+    key = "fgc_t_activetag",
+    path = "fgc_t_activetag.png",
+    px = 32,
+    py = 32
+}

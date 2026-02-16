@@ -11,6 +11,10 @@ return {
             tag_fgc_activetag = {
                 name = "Active Tag",
                 text = {"Retriggers the next activated {C:attention}Joker{}"}
+            },
+            tag_fgc_willitkill_tag = {
+                name = "WILL IT KILL...?",
+                text = {"Alrighty then chatroom..."}
             }
         },
         Blind = {
