@@ -1,7 +1,7 @@
 -- credits to SMG9000 and Yahimice for the code
-function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
+function create_UIBox_willitkill(filename, title, pausetime, totaltime, kills)
 
-    local file_path = SMODS.Mods["FGCBalatro"].path .. "/assets/videos/" .. name .. ".ogv"
+    local file_path = SMODS.Mods["FGCBalatro"].path .. "/assets/videos/" .. filename .. ".ogv"
     local file = NFS.read(file_path)
     love.filesystem.write("temp.ogv", file)
 
@@ -9,7 +9,7 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
 
     local vid_sprite = Sprite(
         0, 0,
-        11 * 16 / 9, 11,
+        8 * 16 / 9, 8,
         G.ASSET_ATLAS["ui_" .. (G.SETTINGS.colourblind_option and 2 or 1)],
         {x=0,y=0}
     )
@@ -59,7 +59,8 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
         minh = 1,
         scale = 0.25,
         ref_table = wager,
-        ref_value = 'dollars'
+        ref_value = 'dollars',
+        r = 0.1
     })
 
     local t = create_UIBox_generic_options({
@@ -88,9 +89,9 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
                                 n = G.UIT.T,
                                 config={
                                     align="cm",
-                                    text="WILL IT KILL...?",
+                                    text="WILL IT KILL...? - "..title,
                                     padding = 0.1,
-                                    scale=1,
+                                    scale=0.5,
                                     colour=G.C.WHITE,
                                 }
                             }}
@@ -108,12 +109,12 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
                 },
                 {
                     n = G.UIT.R,
-                    config = {align="bm", minh = 1, padding = 0.1},
+                    config = {align="bm", minh = 1, padding = 0.2},
                     nodes = {
                         {
                             n = G.UIT.C,
                             config = {
-                                minw=6,
+                                minw=4,
                                 minh=1,
                                 colour=G.C.BLUE,
                                 button="vote_yes",
@@ -128,7 +129,7 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
                                 n = G.UIT.T,
                                 config={
                                     align="cm",
-                                    text="YES IT DOES",
+                                    text="YES",
                                     scale=1,
                                     padding = 0.15,
                                     colour=G.C.WHITE,
@@ -138,7 +139,7 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
                         {
                             n = G.UIT.C,
                             config = {
-                                minw=6,
+                                minw=4,
                                 minh=1,
                                 colour=G.C.RED,
                                 button="vote_no",
@@ -153,7 +154,7 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
                                 n = G.UIT.T,
                                 config={
                                     align="cm",
-                                    text="NO IT DOESN'T",
+                                    text="NO",
                                     scale=1,
                                     padding = 0.15,
                                     colour=G.C.WHITE,
@@ -201,13 +202,22 @@ function create_UIBox_willitkill(name, buttonname, pausetime, totaltime, kills)
         if not initialized_frame and video_file:tell() >= pausetime then
             video_file:pause()
             initialized_frame = true
+            play_sound("fgc_wik_alrightythenchatroom", 1,1)
         end
 
         if has_voted and time_elapsed >= totaltime then
             has_voted = false
-            if (kills == true and vote == 1) or (kills == false and vote == 0) then
+            if (kills == true and vote == 1) then
                 ease_dollars(math.floor(wager.dollars + 0.5))
-            else
+                play_sound("fgc_wik_kills_correct", 1,1)
+            elseif  (kills == false and vote == 0) then
+                play_sound("fgc_wik_lives_correct", 1,1)
+                ease_dollars(math.floor(wager.dollars + 0.5))
+            elseif (kills == true and vote == 0) then
+                play_sound("fgc_wik_lives_wrong", 1,1)
+                ease_dollars(- math.floor(wager.dollars + 0.5))
+            elseif (kills == false and vote == 1) then
+                play_sound("fgc_wik_kills_wrong", 1,1)
                 ease_dollars(- math.floor(wager.dollars + 0.5))
             end
             G.FUNCS.exit_overlay_menu()

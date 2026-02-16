@@ -47,3 +47,28 @@ SMODS.Sound {
     key = "fgc_umeshoryu",
     path = "fgc_umeshoryu.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_wik_alrightythenchatroom",
+    path = "fgc_wik_alrightythenchatroom.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_wik_kills_correct",
+    path = "fgc_wik_kills_correct.wav",
+}
+
+SMODS.Sound {
+    key = "fgc_wik_kills_wrong",
+    path = "fgc_wik_kills_wrong.wav",
+}
+
+SMODS.Sound {
+    key = "fgc_wik_lives_correct",
+    path = "fgc_wik_lives_correct.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_wik_lives_wrong",
+    path = "fgc_wik_lives_wrong.wav"
+}

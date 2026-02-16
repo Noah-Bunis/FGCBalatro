@@ -1,3 +1,8 @@
+local wik_videos = {
+    {filename = "sf3", title = "Street Fighter 3: Third Strike (credit: Spiraler)", pausetime = 8.5, totaltime = 20, kills = false},
+    {filename = "gbvsr", title = "Granblue Fantasy Versus: Rising (credit: Light)", pausetime = 2.5, totaltime = 21, kills = true},
+}
+
 SMODS.Blind {
     key = "beast",
     dollars = 5,
@@ -42,8 +47,9 @@ SMODS.Blind {
     boss_colour = HEX("590a0a"),
     atlas = "fgc_sajam",
     set_blind= function(self)
+        local video = wik_videos[math.random(#wik_videos)]
         G.FUNCS.overlay_menu{
-                definition = create_UIBox_willitkill("sf3", "back", 8.45, 20, false),
+                definition = create_UIBox_willitkill(video.filename, video.title, video.pausetime, video.totaltime, video.kills),
                 config = {no_esc = true}
             }
     end,
