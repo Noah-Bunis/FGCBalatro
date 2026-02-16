@@ -33,8 +33,8 @@ SMODS.Atlas {
 	path = 'fgc_j_dustloop.png',
 	px = 71, py = 95,
     atlas_table = 'ANIMATION_ATLAS',
-	frames = 261,
-	fps = 29
+	frames = 130,
+	fps = 15
 }
 
 SMODS.Atlas {
