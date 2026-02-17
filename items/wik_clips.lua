@@ -1,5 +1,5 @@
 --[[ 
-CURRENT ODDS Yes:2 No:3
+CURRENT ODDS Yes:3 No:5
 
 FORMAT:
 {
@@ -13,6 +13,27 @@ FORMAT:
 ]]
 
 WIK_CLIPS = {
+{
+    filename = "ggxx",
+    title = "GUILTY GEAR XX ACCENT CORE PLUS R (credit: GigaHands)",
+    pausetime = 3,
+    totaltime = 18.5,
+    kills = false
+},    
+{
+    filename = "bbtag",
+    title = "BlazBlue Cross Tag Battle (credit: CubeVato)",
+    pausetime = 5.5,
+    totaltime = 26,
+    kills = false
+},    
+{
+    filename = "sf6",
+    title = "Street Fighter 6 (credit: mynemyeff)",
+    pausetime = 7,
+    totaltime = 26,
+    kills = true
+},
 {
     filename = "sf3",
     title = "Street Fighter 3: Third Strike (credit: Spiraler)",

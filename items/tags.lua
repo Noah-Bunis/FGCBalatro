@@ -39,6 +39,7 @@ SMODS.Tag {
                 return true
             end)
             local video = WIK_CLIPS[math.random(#WIK_CLIPS)]
+            --local video = WIK_CLIPS[1] --DEBUG FUNCTION
             G.FUNCS.overlay_menu{
                 definition = create_UIBox_willitkill(video.filename, video.title, video.pausetime, video.totaltime, video.kills),
                 config = {no_esc = true}
