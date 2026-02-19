@@ -1,5 +1,5 @@
 --[[ 
-CURRENT ODDS Yes:8 No:6
+CURRENT ODDS Yes:9 No:9
 
 FORMAT:
 {
@@ -13,6 +13,35 @@ FORMAT:
 ]]
 
 WIK_CLIPS = {
+{
+    filename = "eslaf++",
+    title = "E's Laf++ (credit: Somecanine)",
+    pausetime = 3.4,
+    totaltime = 22.5,
+    kills = false
+},
+{
+    filename = "2xko",
+    title = "2XKO (credit: Traveling Controller/Nexus Knockout)",
+    pausetime = 1.2,
+    totaltime = 23.5,
+    kills = true
+
+},
+{
+    filename = "mvc2",
+    title = "Marvel vs. Capcom 2 (credit: Team Spooky)",
+    pausetime = 1,
+    totaltime = 6.5,
+    kills = false
+},
+{
+    filename = "prbg",
+    title = "Power Rangers: Battle for the Grid (credit: leveluplive)",
+    pausetime = 2.45,
+    totaltime = 29,
+    kills = false
+},
 {
     filename = "sms",
     title = "Bishoujo Senshi Sailor Moon S Jougai Rantou!? Shuyaku Soudatsusen (credit: Team Spooky)",
