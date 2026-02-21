@@ -3,6 +3,33 @@ local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
 SMODS.Joker {
+    key = "SageHam",
+    loc_txt = {
+        ['name'] = 'SageHam',
+        ['text'] = {
+            [1] = 'Gives a free {C:spectral}Spectral Card{}',
+            [2] = 'upon winning {C:attention}"WILL IT KILL...?"'
+        }
+    },
+    rarity = 2,
+    cost = 8,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    fgc_sajam = true,
+    atlas = 'fgc_sageham',
+    calculate = function(self, card, context)
+        if context.selling_self then
+            return {
+                sound = "fgc_stevemyarm",
+                pitch = 1,
+                message = "STEVE MY ARM!!!"
+            }
+        end
+    end
+}
+
+SMODS.Joker {
     key = "KBrad",
     loc_txt = {
         ['name'] = 'K-Brad',
@@ -27,7 +54,7 @@ SMODS.Joker {
         end
         if context.joker_main then
             if G.GAME.hands[context.scoring_name].played == 1 then
-                play_sound("fgc_kbrad_mixed", 1, 0.7)
+                play_sound("fgc_kbrad_mixed", 1, 0.5)
                 card.children.center:set_sprite_pos({x = 0, y = 0})
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
                 return {
@@ -66,7 +93,7 @@ SMODS.Joker {
     unlocked = true,
     discovered = true,
     atlas = 'fgc_jaytsu',
-    config = { extra = {Xmult = 3, train_rounds = 0, total_rounds = 2 } },
+    config = { extra = {Xmult = 3, train_rounds = 0, total_rounds = 4 } },
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.Xmult, card.ability.extra.total_rounds, card.ability.extra.train_rounds }}
     end,
@@ -86,6 +113,7 @@ SMODS.Joker {
                 colour = HEX("f27cfb"),
                 sound = "fgc_beatrix",
                 pitch = 1,
+                volume = 0.7,
                 message = "FRIENDSHIP TRAINING!",
             }
         end

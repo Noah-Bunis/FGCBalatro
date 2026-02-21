@@ -208,21 +208,45 @@ function create_UIBox_willitkill(filename, title, pausetime, totaltime, kills)
         if has_voted and time_elapsed >= totaltime then
             has_voted = false
             if (kills == true and vote == 1) then
-                ease_dollars(math.floor(wager.dollars + 0.5))
                 play_sound("fgc_wik_kills_correct", 1,1)
+                payout_wik(true, wager)
             elseif  (kills == false and vote == 0) then
                 play_sound("fgc_wik_lives_correct", 1,1)
-                ease_dollars(math.floor(wager.dollars + 0.5))
+                payout_wik(true, wager)
             elseif (kills == true and vote == 0) then
                 play_sound("fgc_wik_lives_wrong", 1,1)
-                ease_dollars(- math.floor(wager.dollars + 0.5))
+                payout_wik(false, wager)
             elseif (kills == false and vote == 1) then
                 play_sound("fgc_wik_kills_wrong", 1,1)
-                ease_dollars(- math.floor(wager.dollars + 0.5))
+                payout_wik(false, wager)
             end
             G.FUNCS.exit_overlay_menu()
         end
     end
 
     return t
+end
+
+
+function payout_wik(wins, wager)
+    if wins then
+        for _, sageham in ipairs(SMODS.find_card("j_fgc_SageHam")) do
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+                    G.E_MANAGER:add_event(Event({
+                        func = (function()
+                            SMODS.add_card {
+                                set = 'Spectral',
+                                key_append = 'fgc_sageham'
+                            }
+                            G.GAME.consumeable_buffer = 0
+                            return true
+                        end)
+                    }))
+            end
+        end
+        ease_dollars(math.floor(wager.dollars + 0.5))
+    else
+        ease_dollars(- math.floor(wager.dollars + 0.5))
+    end
 end
