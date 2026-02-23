@@ -94,3 +94,9 @@ SMODS.Atlas {
     path = "fgc_j_sageham.png",
     px = 71, py = 95
 }
+
+SMODS.Atlas {
+    key = "fgc_arcadecabinet",
+    path = "fgc_j_arcadecabinet.png",
+    px = 71, py = 95
+}

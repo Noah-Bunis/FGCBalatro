@@ -400,9 +400,9 @@ SMODS.Joker { -- Sajam (Twitch)
 }
 
 SMODS.Joker {
-    key = "Dusty Cabinet",
+    key = "Arcade Cabinet",
     loc_txt = {
-        ['name'] = 'Dusty Cabinet',
+        ['name'] = 'Arcade Cabinet',
         ['text'] = {
             [1] = '{X:chips,C:white} +1 {} Chip for each person playing',
             [2] = '{X:default,C:edition}#1#{} on {C:dark_edition}Steam',
@@ -417,7 +417,7 @@ SMODS.Joker {
     rarity = 2,
     unlocked = true,
     discovered = true,
-    atlas = 'fgc_sajam',
+    atlas = 'fgc_arcadecabinet',
     config = {
         extra = {
             name = activegame_name,
