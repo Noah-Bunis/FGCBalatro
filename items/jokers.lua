@@ -2,33 +2,7 @@ local activeviewers = 0
 local activegame_name = "[RANDOM FIGHTING GAME]"
 local activegame_players = 0
 
-SMODS.Joker {
-    key = "SageHam",
-    loc_txt = {
-        ['name'] = 'SageHam',
-        ['text'] = {
-            [1] = 'Gives a free {C:spectral}Spectral Card{}',
-            [2] = 'upon winning {C:attention}"WILL IT KILL...?"'
-        }
-    },
-    rarity = 2,
-    cost = 8,
-    pos = {x=0,y=0},
-    unlocked = true,
-    discovered = true,
-    fgc_sajam = true,
-    atlas = 'fgc_sageham',
-    calculate = function(self, card, context)
-        if context.selling_self then
-            return {
-                sound = "fgc_stevemyarm",
-                pitch = 1,
-                message = "STEVE MY ARM!!!"
-            }
-        end
-    end
-}
-
+-- Players
 SMODS.Joker {
     key = "KBrad",
     loc_txt = {
@@ -76,140 +50,41 @@ SMODS.Joker {
 }
 
 SMODS.Joker {
-    key = "Jaytsu",
+    key = "BrianF",
     loc_txt = {
-        ['name'] = {
-            [1] = "{C:edition,s:0.6}SSR{}{s:0.6} [Don't Call Her Mambo Bro]",
-            [2] = "Jaytsu",
-        },
+        ['name'] = 'Brian F',
         ['text'] = {
-            [1] = "{X:mult,C:white} X#1#{} mult after {C:attention}#2#{} rounds",
-            [2] = "{C:inactive}(Currently {C:attention}#3#{C:inactive}/#2#)",
+            [1] = "Retrigger all played {C:attention}Stone{} cards",
+            [2] = "All {C:attention}Stone{} cards are {C:attention}Gold{} cards"
         },
-    },
-    rarity = 3,
-    cost = 8,
-    pos = {x=0,y=0},
-    unlocked = true,
-    discovered = true,
-    atlas = 'fgc_jaytsu',
-    config = { extra = {Xmult = 3, train_rounds = 0, total_rounds = 4 } },
-    loc_vars = function(self, info_queue, card)
-        return { vars = {card.ability.extra.Xmult, card.ability.extra.total_rounds, card.ability.extra.train_rounds }}
-    end,
-    calculate = function(self, card, context)
-        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint 
-        and (card.ability.extra.train_rounds < card.ability.extra.total_rounds) then
-            card.ability.extra.train_rounds = card.ability.extra.train_rounds + 1
-            return {
-                message = (card.ability.extra.train_rounds < card.ability.extra.total_rounds) and
-                    (card.ability.extra.train_rounds .. '/' .. card.ability.extra.total_rounds) or
-                    "Active!",
-                colour = HEX("f27cfb")
-            }
-        end
-        if context.before and (card.ability.extra.train_rounds >= card.ability.extra.total_rounds) then
-            return {
-                colour = HEX("f27cfb"),
-                sound = "fgc_beatrix",
-                pitch = 1,
-                volume = 0.7,
-                message = "FRIENDSHIP TRAINING!",
-            }
-        end
-        if context.joker_main and (card.ability.extra.train_rounds >= card.ability.extra.total_rounds) then
-            return {
-                colour = G.C.DARK_EDITION,
-                xmult = card.ability.extra.Xmult,
-            }
-        end
-    end
-}
-SMODS.Joker {
-    key = "Dustloop",
-    loc_txt = {
-        ['name'] = 'Dustloop',
-        ['text'] = {
-            [1] = "This Joker gains {C:mult}+#1#{} Mult",
-            [2] = "per {C:attention}consecutive{}",
-            [3] = "scoring {C:attention}Ace{}",
-            [4] = "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
-                },
-        },
-    rarity = 1,
-    cost = 6,
-    pos = {x=0,y=0},
-    unlocked = true,
-    discovered = true,
-    atlas = 'fgc_dustloop',
-    config = { extra = { mult_gain = 3, mult = 0 } },
-    loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
-    end,
-    calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play and not context.blueprint then
-            if context.other_card.base.value == "Ace" then
-                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
-                return {
-                        message = "j.D",
-                        sound = "fgc_dustloop_hit",
-                        pitch = 1
-                    }
-            else
-                local last_mult = card.ability.extra.mult
-                card.ability.extra.mult = 0
-                if last_mult > 0 then
-                    return {
-                        colour = G.C.RED,
-                        message = "Dropped!",
-                        sound = "fgc_dustloop_dropped",
-                        pitch = 1
-                    }
-                end
-            end
-        end
-        if context.joker_main then
-            return {
-                mult = card.ability.extra.mult
-            }
-        end
-        if context.selling_self then
-            return {
-                colour = G.C.RED,
-                message = "Dropped!",
-                sound = "fgc_dustloop_dropped",
-                pitch = 1
-            }
-        end
-    end
-    
-}
-
-SMODS.Joker {
-    key = "TheDumpster",
-    loc_txt = {
-        ['name'] = 'The Dumpster from {C:attention}Injustice{}',
-        ['text'] = {
-            [1] = "{C:red,E:1}...people played this game for money?"
+        ['unlock'] = {
+            [1] = 'Unlocked by default.'
         }
     },
     pos = {x=0,y=0},
-    cost = 1,
-    rarity = 1,
+    cost = 10,
+    rarity = 2,
     unlocked = true,
     discovered = true,
-    atlas = 'fgc_thedumpster',
-    config = {extra = {chips = -50} },
+    atlas = 'fgc_brian_f',
+    config = { extra = { repetitions = 2} },
     calculate = function(self, card, context)
-        if context.final_scoring_step then
+        if context.repetition and context.cardarea == G.play and context.other_card.config.center.key == "m_stone" then
             return {
-                chips = card.ability.extra.chips,
-                colour = G.C.RED,
-                message = "Dumpstered!"
+                repetitions = card.ability.extra.repetitions
+            }
+        end
+        if context.check_enhancement and context.other_card.config.center.key == "m_stone" then
+            return {
+                m_gold = true
             }
         end
         if context.selling_self then
-            return { add_tag(Tag(("tag_garbage"))) }
+            return {
+                message = "...And the rage quit, let's go!",
+                sound = "fgc_andtheragequit",
+                pitch = 1,
+            }
         end
     end
 }
@@ -258,41 +133,70 @@ SMODS.Joker {
         end
     end
 }
+
+--Commentators
 SMODS.Joker {
-    key = "BrianF",
+    key = "TastySteve",
     loc_txt = {
-        ['name'] = 'Brian_F',
+        ['name'] = 'Tasty Steve',
         ['text'] = {
-            [1] = "Retrigger all played {C:attention}Stone{} cards",
-            [2] = "All {C:attention}Stone{} cards are {C:attention}Gold{} cards"
-        },
-        ['unlock'] = {
-            [1] = 'Unlocked by default.'
+            [1] = 'MAKE SOME NOISE!!!'
         }
     },
+    rarity = 3,
+    cost = 6,
     pos = {x=0,y=0},
-    cost = 10,
-    rarity = 2,
     unlocked = true,
     discovered = true,
-    atlas = 'fgc_brian_f',
-    config = { extra = { repetitions = 2} },
+    atlas = 'fgc_tastysteve'
+}
+
+SMODS.Joker {
+    key = "Jaytsu",
+    loc_txt = {
+        ['name'] = {
+            [1] = "{C:edition,s:0.6}SSR{}{s:0.6} [Don't Call Her Mambo Bro]",
+            [2] = "Jaytsu",
+        },
+        ['text'] = {
+            [1] = "{X:mult,C:white} X#1#{} mult after {C:attention}#2#{} rounds",
+            [2] = "{C:inactive}(Currently {C:attention}#3#{C:inactive}/#2#)",
+        },
+    },
+    rarity = 3,
+    cost = 8,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_jaytsu',
+    config = { extra = {Xmult = 3, train_rounds = 0, total_rounds = 4 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = {card.ability.extra.Xmult, card.ability.extra.total_rounds, card.ability.extra.train_rounds }}
+    end,
     calculate = function(self, card, context)
-        if context.repetition and context.cardarea == G.play and context.other_card.config.center.key == "m_stone" then
+        if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint 
+        and (card.ability.extra.train_rounds < card.ability.extra.total_rounds) then
+            card.ability.extra.train_rounds = card.ability.extra.train_rounds + 1
             return {
-                repetitions = card.ability.extra.repetitions
+                message = (card.ability.extra.train_rounds < card.ability.extra.total_rounds) and
+                    (card.ability.extra.train_rounds .. '/' .. card.ability.extra.total_rounds) or
+                    "Active!",
+                colour = HEX("f27cfb")
             }
         end
-        if context.check_enhancement and context.other_card.config.center.key == "m_stone" then
+        if context.before and (card.ability.extra.train_rounds >= card.ability.extra.total_rounds) then
             return {
-                m_gold = true
-            }
-        end
-        if context.selling_self then
-            return {
-                message = "...And the rage quit, let's go!",
-                sound = "fgc_andtheragequit",
+                colour = HEX("f27cfb"),
+                sound = "fgc_beatrix",
                 pitch = 1,
+                volume = 0.7,
+                message = "FRIENDSHIP TRAINING!",
+            }
+        end
+        if context.joker_main and (card.ability.extra.train_rounds >= card.ability.extra.total_rounds) then
+            return {
+                colour = G.C.DARK_EDITION,
+                xmult = card.ability.extra.Xmult,
             }
         end
     end
@@ -395,6 +299,121 @@ SMODS.Joker { -- Sajam (Twitch)
         end
         if context.end_of_round and context.game_over == false and context.main_eval and not context.blueprint then
             recheckTwitch(true)
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "SageHam",
+    loc_txt = {
+        ['name'] = 'SageHam',
+        ['text'] = {
+            [1] = 'Gives a free {C:spectral}Spectral Card{}',
+            [2] = 'upon winning {C:attention}"WILL IT KILL...?"'
+        }
+    },
+    rarity = 2,
+    cost = 8,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    fgc_sajam = true,
+    atlas = 'fgc_sageham',
+    calculate = function(self, card, context)
+        if context.selling_self then
+            return {
+                sound = "fgc_stevemyarm",
+                pitch = 1,
+                message = "STEVE MY ARM!!!"
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "Dustloop",
+    loc_txt = {
+        ['name'] = 'Dustloop',
+        ['text'] = {
+            [1] = "This Joker gains {C:mult}+#1#{} Mult",
+            [2] = "per {C:attention}consecutive{}",
+            [3] = "scoring {C:attention}Ace{}",
+            [4] = "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+                },
+        },
+    rarity = 1,
+    cost = 6,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_dustloop',
+    config = { extra = { mult_gain = 3, mult = 0 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            if context.other_card.base.value == "Ace" then
+                card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+                return {
+                        message = "j.D",
+                        sound = "fgc_dustloop_hit",
+                        pitch = 1
+                    }
+            else
+                local last_mult = card.ability.extra.mult
+                card.ability.extra.mult = 0
+                if last_mult > 0 then
+                    return {
+                        colour = G.C.RED,
+                        message = "Dropped!",
+                        sound = "fgc_dustloop_dropped",
+                        pitch = 1
+                    }
+                end
+            end
+        end
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+        if context.selling_self then
+            return {
+                colour = G.C.RED,
+                message = "Dropped!",
+                sound = "fgc_dustloop_dropped",
+                pitch = 1
+            }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "TheDumpster",
+    loc_txt = {
+        ['name'] = 'The Dumpster from {C:attention}Injustice{}',
+        ['text'] = {
+            [1] = "{C:red,E:1}...people played this game for money?"
+        }
+    },
+    pos = {x=0,y=0},
+    cost = 1,
+    rarity = 1,
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_thedumpster',
+    config = {extra = {chips = -50} },
+    calculate = function(self, card, context)
+        if context.final_scoring_step then
+            return {
+                chips = card.ability.extra.chips,
+                colour = G.C.RED,
+                message = "Dumpstered!"
+            }
+        end
+        if context.selling_self then
+            return { add_tag(Tag(("tag_garbage"))) }
         end
     end
 }
