@@ -1,7 +1,7 @@
 SMODS.PokerHand {
     key = "HalfCircle",
-    mult = 5,
-    chips = 35,
+    mult = 10,
+    chips = 100,
     l_mult = 3,
     l_chips = 30,
     example = {
