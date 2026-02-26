@@ -44,7 +44,7 @@ SMODS.Blind {
     boss_colour = HEX("590a0a"),
     atlas = "fgc_t_sajam",
     set_blind= function(self)
-        local video = WIK_CLIPS[math.random(#WIK_CLIPS)]
+        local video = pseudorandom_element(WIK_CLIPS, "fgc_seed")
         G.FUNCS.overlay_menu{
                 definition = create_UIBox_willitkill(video.filename, video.title, video.pausetime, video.totaltime, video.kills),
                 config = {no_esc = true}

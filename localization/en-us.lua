@@ -26,7 +26,7 @@ return {
         Other = {
             fgc_modern_seal = {
                 name = "Modern Seal",
-                text = {"Card is treated as {C:attention}Lucky{}", "Score {C:red}10% less{} {C:blue}Chips"}
+                text = {"Card is treated as {C:attention}Lucky{}", "Score {C:red,E:2}#1#% less{} {C:blue}Chips"}
             }
         }  
     },

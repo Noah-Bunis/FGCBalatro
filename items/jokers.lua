@@ -140,15 +140,48 @@ SMODS.Joker {
     loc_txt = {
         ['name'] = 'Tasty Steve',
         ['text'] = {
-            [1] = 'MAKE SOME NOISE!!!'
+            [1] = 'All played cards gain',
+            [2] = 'a random {C:attention}seal{}',
+            [3] = 'when scored'
         }
     },
     rarity = 3,
-    cost = 6,
+    cost = 8,
     pos = {x=0,y=0},
     unlocked = true,
     discovered = true,
-    atlas = 'fgc_tastysteve'
+    atlas = 'fgc_tastysteve',
+    calculate = function(self, card, context)
+        local  sounds = {
+        'fgc_tastysteve_letsgo_long',
+        'fgc_tastysteve_letsgo_short'}
+
+        if SMODS.last_hand_oneshot and context.after then
+            play_sound('fgc_tastysteve_damage',1,1)
+        end
+        if context.before and not context.blueprint then
+            local cards = 0
+            for _, scored_card in ipairs(context.scoring_hand) do
+                cards = cards + 1
+                local random_seal = SMODS.poll_seal {key = "fgc_seed", guaranteed = true}
+                scored_card:set_seal(random_seal)
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        scored_card:juice_up()
+                        return true
+                    end
+                }))
+            end
+            if cards > 0 then
+                return {
+                    message = "MAKE SOME NOISE!!!",
+                    colour = G.C.DARK_EDITION,
+                    sound = pseudorandom_element(sounds, "fgc_seed"),
+                    pitch = 1
+                }
+            end
+        end
+    end
 }
 
 SMODS.Joker {
@@ -549,7 +582,7 @@ function recheckSteam(forceRecheck)
         if not succ then
             return
         end
-        local game = FGC_GAMES[math.random(#FGC_GAMES)]
+        local game = pseudorandom_element(FGC_GAMES, "fgc_seed")
         activegame_name = game.name
         activegame_players = 0
 

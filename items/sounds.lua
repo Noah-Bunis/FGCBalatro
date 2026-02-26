@@ -72,3 +72,18 @@ SMODS.Sound {
     key = "fgc_wik_lives_wrong",
     path = "fgc_wik_lives_wrong.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_tastysteve_letsgo_short",
+    path = "fgc_tastysteve_letsgo_short.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_tastysteve_letsgo_long",
+    path = "fgc_tastysteve_letsgo_long.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_tastysteve_damage",
+    path = "fgc_tastysteve_damage.wav"
+}

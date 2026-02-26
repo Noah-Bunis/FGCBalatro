@@ -38,7 +38,7 @@ SMODS.Tag {
             tag:yep('?', G.C.RED, function()
                 return true
             end)
-            local video = WIK_CLIPS[math.random(#WIK_CLIPS)]
+            local video = pseudorandom_element(WIK_CLIPS, "fgc_seed")
             --local video = WIK_CLIPS[1] --DEBUG FUNCTION
             G.FUNCS.overlay_menu{
                 definition = create_UIBox_willitkill(video.filename, video.title, video.pausetime, video.totaltime, video.kills),
