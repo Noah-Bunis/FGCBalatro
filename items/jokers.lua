@@ -146,7 +146,7 @@ SMODS.Joker {
         }
     },
     rarity = 3,
-    cost = 8,
+    cost = 12,
     pos = {x=0,y=0},
     unlocked = true,
     discovered = true,
@@ -162,15 +162,17 @@ SMODS.Joker {
         if context.before and not context.blueprint then
             local cards = 0
             for _, scored_card in ipairs(context.scoring_hand) do
-                cards = cards + 1
-                local random_seal = SMODS.poll_seal {key = "fgc_seed", guaranteed = true}
-                scored_card:set_seal(random_seal)
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        scored_card:juice_up()
-                        return true
-                    end
-                }))
+                if not scored_card.seal then
+                    cards = cards + 1
+                    local random_seal = SMODS.poll_seal {key = "fgc_seed", guaranteed = true}
+                    scored_card:set_seal(random_seal)
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            scored_card:juice_up()
+                            return true
+                        end
+                    }))
+                end
             end
             if cards > 0 then
                 return {
