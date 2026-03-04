@@ -87,3 +87,58 @@ SMODS.Sound {
     key = "fgc_tastysteve_damage",
     path = "fgc_tastysteve_damage.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_maxdood_lucky",
+    path = "fgc_maxdood_lucky.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_breakdown",
+    path = "fgc_maxdood_breakdown.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_checkthisout",
+    path = "fgc_maxdood_checkthisout.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_gnaah",
+    path = "fgc_maxdood_gnaah.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_headsup",
+    path = "fgc_maxdood_headsup.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_rollback",
+    path = "fgc_maxdood_rollback.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_stopmashing",
+    path = "fgc_maxdood_stopmashing.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_surprise",
+    path = "fgc_maxdood_surprise.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_bam",
+    path = "fgc_maxdood_bam.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_youPOS",
+    path = "fgc_maxdood_youPOS.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_maxdood_shineon",
+    path = "fgc_maxdood_shineon.wav"
+}

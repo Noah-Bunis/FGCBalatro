@@ -24,11 +24,11 @@ SMODS.Joker {
     end,
     calculate = function (self, card, context)
         if context.setting_blind then
-            play_sound("fgc_kbrad", 1, 1.2)
+            play_sound("fgc_kbrad", 1, 1)
         end
         if context.joker_main then
             if G.GAME.hands[context.scoring_name].played == 1 then
-                play_sound("fgc_kbrad_mixed", 1, 0.5)
+                play_sound("fgc_kbrad_mixed", 1, 0.4)
                 card.children.center:set_sprite_pos({x = 0, y = 0})
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
                 return {
@@ -136,6 +136,68 @@ SMODS.Joker {
 
 --Commentators
 SMODS.Joker {
+    key = "MaxDood",
+    loc_txt = {
+        ['name'] = 'Maximilian Dood',
+        ['text'] = {
+            [1] = 'Create an {C:attention}#1#{} for each',
+            [2] = 'discarded {C:attention}#2#{}, rank',
+            [3] = "changes every round"
+        }
+    },
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_maxdood',
+    rarity = 1,
+    cost = 4,
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'tag_fgc_activetag', set = 'Tag' }
+        return { vars = { localize { type = 'name_text', set = 'Tag', key = 'tag_fgc_activetag' }, 
+            localize((G.GAME.current_round.fgc_max_card or {}).rank or 'Ace', 'ranks') } }
+    end,
+    calculate = function(self, card, context)
+        local  sounds = {
+        "fgc_maxdood_lucky","fgc_maxdood_breakdown","fgc_maxdood_checkthisout","fgc_maxdood_gnaah",
+        "fgc_maxdood_headsup","fgc_maxdood_rollback","fgc_maxdood_stopmashing","fgc_maxdood_surprise",
+    "fgc_maxdood_bam", "fgc_maxdood_shineon",}
+
+        if context.discard and not context.other_card.debuff and
+            context.other_card:get_id() == G.GAME.current_round.fgc_max_card.id then
+            return {
+                message = "SHINE ON!",
+                colour = G.C.DARK_EDITION,
+                sound = pseudorandom_element(sounds, "fgc_seed"),
+                volume = 1,
+                pitch = 1,
+                add_tag(Tag(("tag_fgc_activetag")))
+            }
+        end
+        if context.buying_self then
+            play_sound('fgc_maxdood_shineon',1,1)
+        end
+        if context.selling_self then
+            play_sound('fgc_maxdood_youPOS',1,1)
+        end
+    end
+}
+
+local function reset_fgc_max_rank()
+    G.GAME.current_round.fgc_max_card = { rank = 'Ace' }
+    local valid_max_card = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_rank(playing_card) then
+            valid_max_card[#valid_max_card + 1] = playing_card
+        end
+    end
+    local max_card = pseudorandom_element(valid_max_card, 'fgc_MaxDood' .. G.GAME.round_resets.ante)
+    if max_card then
+        G.GAME.current_round.fgc_max_card.rank = max_card.base.value
+        G.GAME.current_round.fgc_max_card.id = max_card.base.id
+    end
+end
+
+SMODS.Joker {
     key = "TastySteve",
     loc_txt = {
         ['name'] = 'Tasty Steve',
@@ -145,7 +207,7 @@ SMODS.Joker {
             [3] = 'when scored'
         }
     },
-    rarity = 3,
+    rarity = 2,
     cost = 12,
     pos = {x=0,y=0},
     unlocked = true,
@@ -600,4 +662,8 @@ function recheckSteam(forceRecheck)
             activegame_players = parsed.response.player_count or 0
         end
     end
+end
+
+function SMODS.current_mod.reset_game_globals(run_start)
+    reset_fgc_max_rank()
 end
