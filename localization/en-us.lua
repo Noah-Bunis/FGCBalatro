@@ -7,6 +7,16 @@ return {
                         "{C:chips}+#4#{} chips"}
             }
         },
+        Tarot = {
+            c_fgc_leverless = {
+                name = "The Leverless",
+                text = {
+                    "Add a {C:attention}Modern Seal{}",
+                    "to {C:attention}#1#{} selected",
+                    "cards in your hand",
+                },
+            }
+        },
         Tag = {
             tag_fgc_activetag = {
                 name = "Active Tag",

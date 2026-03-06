@@ -112,3 +112,9 @@ SMODS.Atlas {
     path = "fgc_j_maxdood.png",
     px = 71, py = 95
 }
+
+SMODS.Atlas {
+    key = "fgc_theleverless",
+    path = "fgc_c_theleverless.png",
+    px = 71, py = 95
+}
