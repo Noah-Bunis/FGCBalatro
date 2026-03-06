@@ -182,13 +182,13 @@ SMODS.Joker {
             }
         end
         if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "mag" then
-            play_sound("fgc_yipes_mag", 1,0.8)
+            play_sound("fgc_yipes_mag", 1,0.7)
             return {
                 xchips = card.ability.extra.xchips
             }
         end
         if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "storm" then
-            play_sound("fgc_yipes_storm", 1,0.8)
+            play_sound("fgc_yipes_storm", 1,0.7)
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
@@ -375,7 +375,7 @@ SMODS.Joker { -- Sajam
     loc_txt = {
         ['name'] = 'Sajam',
         ['text'] = {
-            [1] = '{C:rare}Sajam{} Jokers',
+            [1] = '{C:attention}Sajam{} Jokers',
             [2] = 'each give {X:mult,C:white} X2 {} Mult'
         },
         ['unlock'] = {

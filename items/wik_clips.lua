@@ -1,5 +1,5 @@
 --[[ 
-CURRENT ODDS Yes:9 No:9
+CURRENT ODDS Yes:9 No:10
 
 FORMAT:
 {
@@ -13,6 +13,14 @@ FORMAT:
 ]]
 
 WIK_CLIPS = {
+{
+    filename = "2xko_1",
+    title = "2XKO (credit: broadWayy__)",
+    pausetime = 3,
+    totaltime = 28,
+    kills = false
+
+},
 {
     filename = "eslaf++",
     title = "E's Laf++ (credit: Somecanine)",
