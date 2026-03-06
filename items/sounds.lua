@@ -142,3 +142,18 @@ SMODS.Sound {
     key = "fgc_maxdood_shineon",
     path = "fgc_maxdood_shineon.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_yipes_mag",
+    path = "fgc_yipes_mag.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_yipes_storm",
+    path = "fgc_yipes_storm.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_yipes_sent",
+    path = "fgc_yipes_sent.wav"
+}

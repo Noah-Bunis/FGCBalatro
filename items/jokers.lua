@@ -161,6 +161,7 @@ SMODS.Joker {
         end
         if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
             if card.ability.extra.assist == "sent" then
+                play_sound("fgc_yipes_sent", 1,1)
                 G.E_MANAGER:add_event(Event({
                 func = function()
                     ease_hands_played(card.ability.extra.hands)
@@ -181,11 +182,13 @@ SMODS.Joker {
             }
         end
         if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "mag" then
+            play_sound("fgc_yipes_mag", 1,0.8)
             return {
                 xchips = card.ability.extra.xchips
             }
         end
         if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "storm" then
+            play_sound("fgc_yipes_storm", 1,0.8)
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
