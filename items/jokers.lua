@@ -134,6 +134,77 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "Yipes",
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_yipes',
+    rarity = 1,
+    cost = 6,
+    config = { extra = { assist = "mag", xchips = 1.25, type = 'Three of a Kind', dollars = 1, hands = 1} },
+    loc_vars = function(self,info_queue, card)
+        return { vars = { colours = {G.C.UI.TEXT_DARK}, localize(card.ability.extra.type, 'poker_hands'), card.ability.extra.xchips, card.ability.extra.dollars, card.ability.extra.hands},
+        key = card.ability.extra.assist == "mag" and "j_fgc_Yipes_mag" or 
+        card.ability.extra.assist == "storm" and "j_fgc_Yipes_storm" or
+        card.ability.extra.assist == "sent" and "j_fgc_Yipes_sent" or nil}
+    end,
+    calculate = function(self, card, context)
+        local function switch_assist()
+            if card.ability.extra.assist == "mag" then
+                card.ability.extra.assist = "storm"
+            elseif card.ability.extra.assist == "storm" then
+                card.ability.extra.assist = "sent"
+            elseif card.ability.extra.assist == "sent" then
+                card.ability.extra.assist = "mag"
+            end
+        end
+        if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
+            if card.ability.extra.assist == "sent" then
+                play_sound("fgc_yipes_sent", 1,1)
+                G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_hands_played(card.ability.extra.hands)
+                    SMODS.calculate_effect(
+                        { message = localize { type = 'variable', key = 'a_hands', vars = { card.ability.extra.hands } } },
+                        context.blueprint_card or card)
+                    return true
+                end
+            }))
+            end
+            return {
+                 G.E_MANAGER:add_event(Event({
+                        func = function()
+                            switch_assist()
+                            return true
+                        end
+            }))
+            }
+        end
+        if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "mag" then
+            play_sound("fgc_yipes_mag", 1,0.8)
+            return {
+                xchips = card.ability.extra.xchips
+            }
+        end
+        if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "storm" then
+            play_sound("fgc_yipes_storm", 1,0.8)
+                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
+            return {
+                dollars = card.ability.extra.dollars,
+                func = function()
+                    G.E_MANAGER:add_event(Event({
+                        func = function()
+                            G.GAME.dollar_buffer = 0
+                            return true
+                        end
+                    }))
+                end
+            }
+        end
+    end,
+}
+
 --Commentators
 SMODS.Joker {
     key = "MaxDood",
