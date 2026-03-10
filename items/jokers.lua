@@ -476,19 +476,26 @@ SMODS.Joker {
     loc_txt = {
         ['name'] = 'SageHam',
         ['text'] = {
-            [1] = 'Gives a free {C:spectral}Spectral Card{}',
-            [2] = 'upon winning {C:attention}"WILL IT KILL...?"'
+            [1] = 'Sell this card to',
+            [2] = 'play {C:attention}"WILL IT KILL...?"{}',
         }
     },
     rarity = 2,
-    cost = 8,
+    cost = 4,
     pos = {x=0,y=0},
     unlocked = true,
     discovered = true,
+    blueprint_compat = false,
     fgc_sajam = true,
     atlas = 'fgc_sageham',
     calculate = function(self, card, context)
         if context.selling_self then
+            local video = pseudorandom_element(WIK_CLIPS, "fgc_seed")
+            --local video = WIK_CLIPS[1] --DEBUG FUNCTION
+            G.FUNCS.overlay_menu{
+                definition = create_UIBox_willitkill(video.filename, video.title, video.pausetime, video.totaltime, video.kills),
+                config = {no_esc = true}
+            }
             return {
                 sound = "fgc_stevemyarm",
                 pitch = 1,
@@ -515,7 +522,7 @@ SMODS.Joker {
     unlocked = true,
     discovered = true,
     atlas = 'fgc_dustloop',
-    config = { extra = { mult_gain = 3, mult = 0 } },
+    config = { extra = { mult_gain = 8, mult = 0 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult_gain, card.ability.extra.mult } }
     end,

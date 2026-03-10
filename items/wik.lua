@@ -229,8 +229,9 @@ end
 
 
 function payout_wik(wins, wager)
-    if wins then
-        for _, sageham in ipairs(SMODS.find_card("j_fgc_SageHam")) do
+    if wins then 
+        --Legacy SageHam function
+        --[[ for _, sageham in ipairs(SMODS.find_card("j_fgc_SageHam")) do
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                     G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
                     G.E_MANAGER:add_event(Event({
@@ -244,7 +245,7 @@ function payout_wik(wins, wager)
                         end)
                     }))
             end
-        end
+        end  --]]
         ease_dollars(math.floor(wager.dollars + 0.5))
     else
         ease_dollars(- math.floor(wager.dollars + 0.5))
