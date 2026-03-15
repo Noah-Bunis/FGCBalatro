@@ -505,7 +505,7 @@ SMODS.Joker {
     end
 }
 
-SMODS.Joker {
+SMODS.Joker { -- Techniques
     key = "Dustloop",
     loc_txt = {
         ['name'] = 'Dustloop',
@@ -560,6 +560,64 @@ SMODS.Joker {
                 sound = "fgc_dustloop_dropped",
                 pitch = 1
             }
+        end
+    end
+}
+
+SMODS.Joker {
+    key = "EWGF",
+    loc_txt = {
+        ['name'] = 'Electric Wind God Fist',
+        ['text'] = {
+            [1] = "{C:attention}During scoring,",
+            [2] = "{C:green}#1# in #2#{} chance of {X:mult,C:white} X#3# {} Mult",
+            [3] = "{s:0.8}Odds decrease per successful card in scoring hand"
+        }
+    },
+    pos = {x=0,y=0},
+    cost = 6,
+    rarity = 2,
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_ewgf',
+    config = {extra = { current_odds = 3, Xmult = 2, } },
+    loc_vars = function(self, info_queue, card)
+        local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.current_odds, 'fgc_EWGF')
+        return {
+            vars = {numerator, denominator, card.ability.extra.Xmult}
+        }
+    end,
+    calculate = function(self,card,context)
+        if context.individual and context.cardarea == G.play and not context.blueprint then
+            card.children.center:set_sprite_pos({x = 0, y = 0})
+            local numerator, denominator = SMODS.get_probability_vars(card, 1, card.ability.extra.current_odds, 'fgc_EWGF')
+            SMODS.calculate_effect({ message = numerator.." in "..denominator.." chance"}, card)
+            if SMODS.pseudorandom_probability(card, 'fgc_EWGF', 1, card.ability.extra.current_odds) then
+                card.ability.extra.current_odds = card.ability.extra.current_odds + 1
+                return {
+                    sound = "fgc_ewgf",  pitch = 1, message = "I'M NOT GONNA SUGARCOAT IT.", colour = G.C.RED,
+                    xmult = card.ability.extra.Xmult,
+                    func = function()
+                            G.E_MANAGER:add_event(Event({
+                                func = function()
+                                    card.children.center:set_sprite_pos({x = 0, y = 1})
+                                    return true
+                                end
+                            }))
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = 1,
+                                func = function()
+                                    card.children.center:set_sprite_pos({x = 0, y = 0})
+                                    return true
+                                end
+                            }))
+                        end
+                }
+            end
+        end
+        if context.final_scoring_step then
+            card.ability.extra.current_odds = 3
         end
     end
 }

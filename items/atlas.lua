@@ -124,3 +124,9 @@ SMODS.Atlas {
     path = "fgc_j_yipes.png",
     px = 71, py = 95
 }
+
+SMODS.Atlas {
+    key = "fgc_ewgf",
+    path = "fgc_j_ewgf.png",
+    px = 71, py = 95
+}

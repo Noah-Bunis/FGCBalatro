@@ -164,9 +164,6 @@ FGC_GAMES = {{
     appid = 586200,
     name = "Street Fighter 30th Anniversary Collection"
 }, {
-    appid = 2313020,
-    name = "Umamusume: Pretty Derby - Party Dash"
-}, {
     appid = 1719690,
     name = "MerFight"
 }, {

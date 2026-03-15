@@ -157,3 +157,8 @@ SMODS.Sound {
     key = "fgc_yipes_sent",
     path = "fgc_yipes_sent.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_ewgf",
+    path = "fgc_ewgf.wav"
+}
