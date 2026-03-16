@@ -29,6 +29,41 @@ SMODS.Blind {
 }
 
 SMODS.Blind {
+    key = "bull",
+    dollars = 8,
+    mult = 3,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    boss = { min = 1 },
+    boss_colour = HEX("3bdc73"),
+    atlas = 'fgc_menard',
+    calculate = function(self, blind, context)
+        if not blind.disabled then
+            if context.pre_discard then
+                blind.triggered = false
+                if (G.GAME.current_round.discards_left <= 1) then
+                    blind.triggered = true
+                    if not context.check then
+                        ease_dollars(-G.GAME.dollars, true)
+                        for i = 1, #G.jokers.cards do
+                            G.jokers.cards[i]:add_sticker('perishable', true)
+                        end
+                        blind:wiggle()
+                        return {
+                            colour = G.C.UI.TEXT_INACTIVE,
+                            message = "BURNOUT!",
+                            sound = "fgc_burnout",
+                            pitch = 1
+                        }
+                    end
+                end
+            end
+        end
+    end
+}
+
+SMODS.Blind {
     key = "willitkill_blind",
     dollars = 5,
     mult = 2,

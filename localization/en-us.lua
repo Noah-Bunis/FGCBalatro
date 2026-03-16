@@ -52,6 +52,10 @@ return {
             bl_fgc_beast = {
                 name = "The Beast",
                 text = {"UMEHARA GA!", "TSUKAMAETE!","UMEHARA GA!","GAMEN HASHI!","BAASUTO YONDE!","MADA HAIRU!","UMEHARA GA!","...CHIKAZUITE!","UMEHARA GA KIMETAAAA!!!!!!!"}
+            },
+            bl_fgc_bull = {
+                name = "The Bull",
+                text = {"Using your last discard","puts you in {C:attention}burnout{}"}
             }
         },
         Other = {

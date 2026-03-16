@@ -162,3 +162,8 @@ SMODS.Sound {
     key = "fgc_ewgf",
     path = "fgc_ewgf.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_burnout",
+    path = "fgc_burnout.wav"
+}
