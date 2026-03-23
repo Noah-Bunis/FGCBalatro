@@ -2,7 +2,7 @@
 
 An April Fool's project in similar fashion to the [RareSajams](https://dustloop.com/w/Rare_Sajams) gags of recent years.
 
-For general mod discussion or bug reports find the thread in the official Balatro discord
+For general mod discussion or bug reports find the thread in the official Balatro discord.
 
 # Installing Instructions
 https://www.youtube.com/watch?v=JG3jw0oqRZo

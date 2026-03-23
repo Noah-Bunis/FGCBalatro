@@ -1,4 +1,4 @@
--- credits to SMG9000 and Yahimice for the code
+-- credits to SMG9000 and Yahimice for the UIBox and video playback code
 function create_UIBox_willitkill(filename, title, pausetime, totaltime, kills)
 
     local file_path = SMODS.Mods["FGCBalatro"].path .. "/assets/videos/" .. filename .. ".ogv"
@@ -230,22 +230,6 @@ end
 
 function payout_wik(wins, wager)
     if wins then 
-        --Legacy SageHam function
-        --[[ for _, sageham in ipairs(SMODS.find_card("j_fgc_SageHam")) do
-            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                    G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
-                    G.E_MANAGER:add_event(Event({
-                        func = (function()
-                            SMODS.add_card {
-                                set = 'Spectral',
-                                key_append = 'fgc_sageham'
-                            }
-                            G.GAME.consumeable_buffer = 0
-                            return true
-                        end)
-                    }))
-            end
-        end  --]]
         ease_dollars(math.floor(wager.dollars + 0.5))
     else
         ease_dollars(- math.floor(wager.dollars + 0.5))

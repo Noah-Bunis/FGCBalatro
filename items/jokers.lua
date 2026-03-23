@@ -134,6 +134,7 @@ SMODS.Joker {
     end
 }
 
+--Commentators
 SMODS.Joker {
     key = "Yipes",
     pos = {x=0,y=0},
@@ -205,7 +206,6 @@ SMODS.Joker {
     end,
 }
 
---Commentators
 SMODS.Joker {
     key = "MaxDood",
     loc_txt = {

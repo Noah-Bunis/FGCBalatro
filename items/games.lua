@@ -196,4 +196,10 @@ FGC_GAMES = {{
 }, {
     appid = 244730,
     name = "Divekick"
+}, {
+    appid = 1026840,
+    name = "Ultra Fight Da Kyanta 2"
+}, {
+    appid = 1602010,
+    name = "Persona 4 Arena Ultimax"
 }}
