@@ -136,3 +136,9 @@ SMODS.Atlas {
     path = "fgc_j_ewgf.png",
     px = 71, py = 95
 }
+
+SMODS.Atlas {
+    key = "fgc_randomsel",
+    path = "fgc_j_randomsel.png",
+    px = 71, py = 95
+}
