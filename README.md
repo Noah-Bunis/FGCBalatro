@@ -1,4 +1,3 @@
-if you see the pre-release build I have up, uhh no you don't :)
 # FGC Balatro - The Fighting Game Community Mod for Balatro
 
 An April Fool's project in similar fashion to the [RareSajams](https://dustloop.com/w/Rare_Sajams) gags of recent years.
