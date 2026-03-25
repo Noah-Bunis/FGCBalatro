@@ -89,6 +89,12 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = "fgc_t_sajam_bald",
+    path = "fgc_t_sajam_bald.png",
+    px=32, py=32
+}
+
+SMODS.Atlas {
     key = "fgc_t_activetag",
     path = "fgc_t_activetag.png",
     px = 32,
