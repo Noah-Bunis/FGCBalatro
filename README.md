@@ -1,3 +1,5 @@
+<img width="1920" height="1080" alt="FGCBalatroFullHD" src="https://github.com/user-attachments/assets/7a97b38a-3f3f-4afc-a144-935dd9e32c18" />
+
 # FGC Balatro - The Fighting Game Community Mod for Balatro
 
 An April Fool's project in similar fashion to the [RareSajams](https://dustloop.com/w/Rare_Sajams) gags of recent years.
