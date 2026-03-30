@@ -370,6 +370,38 @@ SMODS.Joker {
     end
 }
 
+SMODS.Joker {
+    key = "CrackinAtkins",
+    loc_txt = {
+        ['name'] = 'Crackin Atkins',
+        ['text'] = {
+            [1] = 'When {C:attention}Blind{} is selected,',
+            [2] = 'create an {C:attention}#1#{} and a {C:attention}#2#{}',
+            [3] = '{s:0.8, C:inactive}"who would be a good partner with',
+            [4] = '{s:0.8}me{s:0.8, C:inactive} in BlazBlue Cross Tag Battle?"'
+        }
+    },
+    config = {extra = {juggle_hand = 3}},
+    loc_vars = function(self, info_queue, card)
+        info_queue[#info_queue + 1] = { key = 'tag_fgc_activetag', set = 'Tag' }
+        info_queue[#info_queue + 1] = { key = 'tag_juggle', set = 'Tag' }
+        return { vars = { localize { type = 'name_text', set = 'Tag', key = 'tag_fgc_activetag' }, 
+            localize { type = 'name_text', set = 'Tag', key = 'tag_juggle' } } }
+    end,
+    pos = {x=0,y=0}, 
+    cost = 4,
+    rarity = 1,
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_crackinatkins',
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            add_tag(Tag(("tag_fgc_activetag")))
+            add_tag(Tag(("tag_juggle")))
+        end
+    end
+}
+
 SMODS.Joker { -- Sajam
     key = "Sajam",
     loc_txt = {
