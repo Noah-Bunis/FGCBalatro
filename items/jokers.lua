@@ -810,9 +810,12 @@ SMODS.Joker {
         if context.retrigger_joker_check then
             return { 
                 repetitions = 1,
-                colour = G.C.GREEN,
+                colour = HEX("d0eb7e"),
                 message = "Tag!",
-                SMODS.destroy_cards(card, nil, nil, true),
+                sound = "fgc_activetag",
+                pitch = 1,
+                card:juice_up(0.8, 0.8),
+                card:start_dissolve({ HEX("d0eb7e") }, nil, 1),
             }
         end
     end

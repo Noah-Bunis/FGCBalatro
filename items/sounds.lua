@@ -167,3 +167,8 @@ SMODS.Sound {
     key = "fgc_burnout",
     path = "fgc_burnout.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_activetag",
+    path = "fgc_activetag.wav"
+}
