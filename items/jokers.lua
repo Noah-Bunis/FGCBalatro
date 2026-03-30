@@ -4,6 +4,38 @@ local activegame_players = 0
 
 -- Players
 SMODS.Joker {
+    key = "RyanHart",
+    loc_txt = {
+        ['name'] = 'Ryan Hart',
+        ['text'] = {
+            [1] = '{X:mult,C:white}+#1#{} Mult if played hand contains a {C:attention}Flush{}',
+            [2] = '{X:mult,C:white} X#2#{} Mult if you have an {C:attention}Egg{} Joker'
+        }
+    },
+    rarity = 2,
+    cost = 6,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_ryanhart',
+    config = {extra = {plusmult = 14, xmult = 2}},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.plusmult, card.ability.extra.xmult,}}
+    end,
+    calculate = function(self, card, context)
+        if context.joker_main and next(context.poker_hands['Flush']) then
+            return {
+                mult = card.ability.extra.plusmult
+            }
+        end
+        if context.joker_main and next(SMODS.find_card("j_egg")) then
+            return {
+                xmult = card.ability.extra.xmult
+            }
+        end
+    end
+}
+SMODS.Joker {
     key = "KBrad",
     loc_txt = {
         ['name'] = 'K-Brad',
@@ -22,7 +54,7 @@ SMODS.Joker {
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.dollars } }
     end,
-    calculate = function (self, card, context)
+    calculate = function(self, card, context)
         if context.setting_blind then
             play_sound("fgc_kbrad", 1, 1)
         end
@@ -54,7 +86,7 @@ SMODS.Joker {
     loc_txt = {
         ['name'] = 'Brian F',
         ['text'] = {
-            [1] = "Retrigger all played {C:attention}Stone{} cards",
+            [1] = "Retrigger all played {C:attention}Stone{} cards twice",
             [2] = "All {C:attention}Stone{} cards are {C:attention}Gold{} cards"
         },
         ['unlock'] = {
@@ -62,7 +94,7 @@ SMODS.Joker {
         }
     },
     pos = {x=0,y=0},
-    cost = 10,
+    cost = 7,
     rarity = 2,
     unlocked = true,
     discovered = true,
