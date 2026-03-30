@@ -1,5 +1,5 @@
 --[[ 
-CURRENT ODDS Yes:10 No:10
+CURRENT ODDS: Yes:10 No:10
 
 FORMAT:
 {
