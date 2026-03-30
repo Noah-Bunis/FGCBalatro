@@ -1,5 +1,5 @@
 --[[ 
-CURRENT ODDS Yes:9 No:10
+CURRENT ODDS Yes:10 No:10
 
 FORMAT:
 {
@@ -13,6 +13,13 @@ FORMAT:
 ]]
 
 WIK_CLIPS = {
+{
+    filename = "chlorophyter",
+    title = "Chlorophyter (credit: GamersGoinBlind)",
+    pausetime = 3,
+    totaltime = 21,
+    kills = true
+},
 {
     filename = "2xko_1",
     title = "2XKO (credit: broadWayy__)",
