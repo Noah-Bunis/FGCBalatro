@@ -16,12 +16,12 @@ SMODS.Joker {
         }
     },
     rarity = 3,
-    cost = 6,
+    cost = 8,
     pos = {x=0,y=0},
     unlocked = true,
     discovered = true,
     atlas = 'fgc_punk',
-    config = {extra = {mult_gain = 1, mult = 0}},
+    config = {extra = {mult_gain = 0.5, mult = 0}},
     loc_vars = function(self, info_queue, card)
         return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult}}
     end,
@@ -234,7 +234,7 @@ SMODS.Joker {
         end
         if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
             if card.ability.extra.assist == "sent" then
-                play_sound("fgc_yipes_sent", 1,0.5)
+                play_sound("fgc_yipes_sent", 1,0.7)
                 G.E_MANAGER:add_event(Event({
                 func = function()
                     ease_hands_played(card.ability.extra.hands)
@@ -255,7 +255,7 @@ SMODS.Joker {
             }
         end
         if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "mag" then
-            play_sound("fgc_yipes_mag", 1,0.5)
+            play_sound("fgc_yipes_mag", 1,0.2)
             return {
                 xchips = card.ability.extra.xchips
             }
@@ -404,12 +404,12 @@ SMODS.Joker {
         },
     },
     rarity = 3,
-    cost = 8,
+    cost = 5,
     pos = {x=0,y=0},
     unlocked = true,
     discovered = true,
     atlas = 'fgc_jaytsu',
-    config = { extra = {Xmult = 3, train_rounds = 0, total_rounds = 4 } },
+    config = { extra = {Xmult = 3, train_rounds = 0, total_rounds = 3 } },
     loc_vars = function(self, info_queue, card)
         return { vars = {card.ability.extra.Xmult, card.ability.extra.total_rounds, card.ability.extra.train_rounds }}
     end,

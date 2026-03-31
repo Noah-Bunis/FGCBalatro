@@ -5,7 +5,7 @@ SMODS.Consumable {
     unlocked = true,
     discovered = true,
     pos = { x = 0, y = 0 },
-    config = { extra = { seal = 'fgc_modern' }, max_highlighted = 4},
+    config = { extra = { seal = 'fgc_modern' }, max_highlighted = 3},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = G.P_CENTERS[card.ability.mod_conv]
         return { vars = { card.ability.max_highlighted, localize{ type = 'name_text', set = 'Other', key = 'fgc_modern_seal' }, } }

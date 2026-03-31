@@ -1,3 +1,19 @@
+SMODS.Atlas{
+    -- These two lines tell it to replace the logo
+    key = "balatro",
+    prefix_config = { key = false },
+
+    path = "FGCBalatroLogoHDTransparent.png",
+    px = 1920,
+    py = 1080,
+}
+
+SMODS.current_mod.menu_cards = function()
+    return {
+        remove_original = true
+    }
+end
+
 SMODS.Atlas {
     key = "fgc_sajam",
     path = "fgc_j_sajam.png",
