@@ -7,18 +7,18 @@ return {
             },
             j_fgc_Yipes_mag = {
                 name = "IFC Yipes",
-                text = {'If played hand contains', "a {C:attention}#1#,", "{B:1,C:edition}WHERE YO' CURLY MUSTACHE AT?!","each played card gives",
+                text = {'If played hand contains', "a {C:attention}#1#,", "{B:1,C:edition}WHERE YO' CURLY MUSTACHE AT?!","Each played card gives",
                     "{X:chips,C:white} X#2#{} Chips when scored"}
             },
             j_fgc_Yipes_storm = {
                 name = "IFC Yipes",
                 text = {'If played hand contains', "a {C:attention}#1#,", 
-                "{B:1,C:edition}MAKE IT RAIN!{}","played cards earn {C:money}$#3#{} when scored"}
+                "{B:1,C:edition}MAKE IT RAIN!{}","Played cards earn {C:money}$#3#{} when scored"}
             },
             j_fgc_Yipes_sent = {
                 name = "IFC Yipes",
                 text = {'If played hand contains', "a {C:attention}#1#,", 
-                "{B:1,C:edition}OH HE GOT THE MANGO SENTINEL!{}","gain {C:blue}+#4#{} hand"}
+                "{B:1,C:edition}OH HE GOT THE MANGO SENTINEL!{}","Gain {C:blue}+#4#{} hands"}
             },
         },
         Planet = {

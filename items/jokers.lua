@@ -175,7 +175,7 @@ SMODS.Joker {
     atlas = 'fgc_yipes',
     rarity = 1,
     cost = 6,
-    config = { extra = { assist = "mag", xchips = 1.25, type = 'Three of a Kind', dollars = 1, hands = 1} },
+    config = { extra = { assist = "mag", xchips = 2, type = 'Three of a Kind', dollars = 2, hands = 2} },
     loc_vars = function(self,info_queue, card)
         return { vars = { colours = {G.C.UI.TEXT_DARK}, localize(card.ability.extra.type, 'poker_hands'), card.ability.extra.xchips, card.ability.extra.dollars, card.ability.extra.hands},
         key = card.ability.extra.assist == "mag" and "j_fgc_Yipes_mag" or 
@@ -194,7 +194,7 @@ SMODS.Joker {
         end
         if context.joker_main and next(context.poker_hands[card.ability.extra.type]) then
             if card.ability.extra.assist == "sent" then
-                play_sound("fgc_yipes_sent", 1,1)
+                play_sound("fgc_yipes_sent", 1,0.5)
                 G.E_MANAGER:add_event(Event({
                 func = function()
                     ease_hands_played(card.ability.extra.hands)
@@ -215,13 +215,13 @@ SMODS.Joker {
             }
         end
         if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "mag" then
-            play_sound("fgc_yipes_mag", 1,0.7)
+            play_sound("fgc_yipes_mag", 1,0.5)
             return {
                 xchips = card.ability.extra.xchips
             }
         end
         if context.individual and context.cardarea == G.play and next(context.poker_hands[card.ability.extra.type]) and card.ability.extra.assist == "storm" then
-            play_sound("fgc_yipes_storm", 1,0.7)
+            play_sound("fgc_yipes_storm", 1,0.5)
                 G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.dollars
             return {
                 dollars = card.ability.extra.dollars,
@@ -252,8 +252,8 @@ SMODS.Joker {
     unlocked = true,
     discovered = true,
     atlas = 'fgc_maxdood',
-    rarity = 1,
-    cost = 4,
+    rarity = 2,
+    cost = 8,
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'tag_fgc_activetag', set = 'Tag' }
         return { vars = { localize { type = 'name_text', set = 'Tag', key = 'tag_fgc_activetag' }, 
@@ -416,12 +416,11 @@ SMODS.Joker {
     config = {extra = {juggle_hand = 3}},
     loc_vars = function(self, info_queue, card)
         info_queue[#info_queue + 1] = { key = 'tag_fgc_activetag', set = 'Tag' }
-        info_queue[#info_queue + 1] = { key = 'tag_juggle', set = 'Tag' }
         return { vars = { localize { type = 'name_text', set = 'Tag', key = 'tag_fgc_activetag' }, 
             localize { type = 'name_text', set = 'Tag', key = 'tag_juggle' } } }
     end,
     pos = {x=0,y=0}, 
-    cost = 4,
+    cost = 6,
     rarity = 1,
     unlocked = true,
     discovered = true,
