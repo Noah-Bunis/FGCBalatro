@@ -4,6 +4,46 @@ local activegame_players = 0
 
 -- Players
 SMODS.Joker {
+    key = "PunkDaGod",
+    loc_txt = {
+        ['name'] = 'PunkDaGod',
+        ['text'] = {
+            [1] = 'This Joker gains {X:mult,C:white}+#1#{} Mult',
+            [2] = 'when you {C:attention}hit confirm{} on an option',
+            [3] = '{C:inactive}Currently {X:mult,C:white}+#2#{C:inactive} Mult{}',
+            [4] = '{C:inactive,s:0.8}(Using consumables, buying/selling cards, buying Booster Packs',
+            [5] = '{C:inactive,s:0.8}and skipping Packs/Blinds are all {C:attention,s:0.8}hit confirms{C:inactive,s:0.8}){}',
+        }
+    },
+    rarity = 3,
+    cost = 6,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_punk',
+    config = {extra = {mult_gain = 1, mult = 0}},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.mult_gain, card.ability.extra.mult}}
+    end,
+    calculate = function(self, card, context)
+        local sounds = {"fgc_punk_7-3", "fgc_punk_stage", "fgc_punk_touch", "fgc_punk_touch2"}
+        if context.open_booster or context.selling_card or context.using_consumeable or context.skip_blind or context.buying_card or context.skipping_booster then
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain
+            return {
+                message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult_gain } },
+                colour = G.C.RED,
+                delay = 0.45
+            }
+        end
+        if context.joker_main then
+            play_sound(pseudorandom_element(sounds, "fgc_seed"), 1,1)
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end
+}
+SMODS.Joker {
     key = "RyanHart",
     loc_txt = {
         ['name'] = 'Ryan Hart',
@@ -260,7 +300,7 @@ SMODS.Joker {
             localize((G.GAME.current_round.fgc_max_card or {}).rank or 'Ace', 'ranks') } }
     end,
     calculate = function(self, card, context)
-        local  sounds = {
+        local sounds = {
         "fgc_maxdood_lucky","fgc_maxdood_breakdown","fgc_maxdood_checkthisout","fgc_maxdood_gnaah",
         "fgc_maxdood_headsup","fgc_maxdood_rollback","fgc_maxdood_stopmashing","fgc_maxdood_surprise",
     "fgc_maxdood_bam", "fgc_maxdood_shineon",}
@@ -409,8 +449,8 @@ SMODS.Joker {
         ['text'] = {
             [1] = 'When {C:attention}Blind{} is selected,',
             [2] = 'create an {C:attention}#1#{} and a {C:attention}#2#{}',
-            [3] = '{s:0.8, C:inactive}"who would be a good partner with',
-            [4] = '{s:0.8}me{s:0.8, C:inactive} in BlazBlue Cross Tag Battle?"'
+            [3] = '{C:inactive,s:0.8}"who would be a good partner with',
+            [4] = '{C:inactive,s:0.8}me in BlazBlue Cross Tag Battle?"'
         }
     },
     config = {extra = {juggle_hand = 3}},

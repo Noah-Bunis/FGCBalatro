@@ -172,3 +172,23 @@ SMODS.Sound {
     key = "fgc_activetag",
     path = "fgc_activetag.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_punk_7-3",
+    path = "fgc_punk_7-3.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_punk_stage",
+    path = "fgc_punk_stage.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_punk_touch",
+    path = "fgc_punk_touch.wav"
+}
+
+SMODS.Sound {
+    key = "fgc_punk_touch2",
+    path = "fgc_punk_touch2.wav"
+}
