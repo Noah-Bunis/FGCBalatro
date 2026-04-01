@@ -192,3 +192,28 @@ SMODS.Sound {
     key = "fgc_punk_touch2",
     path = "fgc_punk_touch2.wav"
 }
+
+SMODS.Sound {
+    key = "fgc_jwong_hegonlearn",
+    path = "fgc_jwong_hegonlearn.wav",
+}
+
+SMODS.Sound {
+    key = "fgc_jwong_itsthereal",
+    path = "fgc_jwong_itsthereal.wav",
+}
+
+SMODS.Sound {
+    key = "fgc_jwong_time",
+    path = "fgc_jwong_time.wav",
+}
+
+SMODS.Sound {
+    key = "fgc_jwong_welcome",
+    path = "fgc_jwong_welcome.wav",
+}
+
+SMODS.Sound {
+    key = "fgc_jwong_chunli",
+    path = "fgc_jwong_chunli.wav",
+}

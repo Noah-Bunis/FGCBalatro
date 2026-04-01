@@ -14,7 +14,7 @@ SMODS.Blind {
         end
         if not blind.disabled then
             if context.individual and context.cardarea == G.play and not context.blueprint then
-            if SMODS.pseudorandom_probability(blind, 'fgc_beast', 1, 4) then
+            if SMODS.pseudorandom_probability(blind, 'fgc_seed', 1, 4) then
                 SMODS.destroy_cards(context.other_card, nil, nil, true)
                 return {
                     colour = G.C.RED,
@@ -57,6 +57,52 @@ SMODS.Blind {
                             pitch = 1
                         }
                     end
+                end
+            end
+        end
+    end
+}
+
+SMODS.Blind {
+    key = "jwong",
+    dollars = 10,
+    mult = 3,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    boss = { showdown = true },
+    boss_colour = HEX("68799a"),
+    atlas = 'fgc_jwong',
+    calculate = function(self, blind, context)
+        local sounds = {"fgc_jwong_hegonlearn","fgc_jwong_itsthereal", "fgc_jwong_time", "fgc_jwong_welcome",}
+        if not blind.disabled then
+            if context.before then
+                return {
+                        colour = G.C.RED,
+                        message = "HAIL STORM!",
+                        sound = pseudorandom_element(sounds, "fgc_seed"),
+                        pitch = 1,
+                        }
+            end
+            if context.initial_scoring_step then
+                    for i = 1, #G.jokers.cards do
+                        if SMODS.pseudorandom_probability(blind, 'fgc_seed', 1, 7) then
+                            blind:wiggle()
+                            blind.triggered = true
+                            G.jokers.cards[i]:add_sticker('perishable', true)
+                            G.jokers.cards[i]:juice_up(0.8, 0.8)
+                        end
+                    end
+            end
+            if context.individual and context.cardarea == G.hand and not context.blueprint then
+                if SMODS.pseudorandom_probability(blind, 'fgc_seed', 1, 4) then
+                    SMODS.destroy_cards(context.other_card, nil, nil, true)
+                    return {
+                        colour = G.C.RED,
+                        message = "ST.HP!",
+                        sound = "fgc_jwong_chunli",
+                        pitch = 1,
+                    }
                 end
             end
         end

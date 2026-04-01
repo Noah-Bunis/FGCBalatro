@@ -41,7 +41,7 @@ return {
         Tag = {
             tag_fgc_activetag = {
                 name = "Active Tag",
-                text = {"Retriggers the next activated {C:attention}Joker{}"}
+                text = {"Retriggers the next series of {C:attention}Joker{} activations"}
             },
             tag_fgc_willitkill_tag = {
                 name = "WILL IT KILL...?",
@@ -56,6 +56,10 @@ return {
             bl_fgc_bull = {
                 name = "The Bull",
                 text = {"Using your last discard","puts you in {C:attention}burnout{}"}
+            },
+            bl_fgc_jwong = {
+                name = "The Wazzler",
+                text = {"Will make you want to refund Balatro"}
             }
         },
         Other = {
