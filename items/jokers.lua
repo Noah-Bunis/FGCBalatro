@@ -4,6 +4,41 @@ local activegame_players = 0
 
 -- Players
 SMODS.Joker {
+    key = "GO1",
+    loc_txt = {
+        ['name'] = 'GO1',
+        ['text'] = {
+            [1] = 'When {C:attention}Blind{} is selected,',
+            [2] = 'gain {X:blue,C:white}X#1#{} Hands'
+        }
+    },
+    rarity = 1,
+    cost = 4,
+    pos = {x=0,y=0},
+    unlocked = true,
+    discovered = true,
+    atlas = 'fgc_go1',
+    config = {extra = {xhands = 1.5}},
+    loc_vars = function(self, info_queue, card)
+        return {vars = {card.ability.extra.xhands}}
+    end,
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    ease_hands_played((math.floor((G.GAME.current_round.hands_left * card.ability.extra.xhands) + 0.5)) - G.GAME.current_round.hands_left)
+                    -- is this gravely overengineered? yes.
+                    SMODS.calculate_effect(
+                        { message = localize { type = 'variable', key = 'a_hands', vars = { card.ability.extra.hands } } },
+                        context.blueprint_card or card)
+                    return true
+                end
+            }))
+            return nil, true
+        end
+    end
+}
+SMODS.Joker {
     key = "PunkDaGod",
     loc_txt = {
         ['name'] = 'PunkDaGod',
@@ -90,7 +125,7 @@ SMODS.Joker {
     unlocked = true,
     discovered = true,
     atlas = 'fgc_kbrad_mixed',
-    config = { extra = {chips = 30, dollars = 5} },
+    config = { extra = {chips = 90, dollars = 5} },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.chips, card.ability.extra.dollars } }
     end,
@@ -351,7 +386,7 @@ SMODS.Joker {
         }
     },
     rarity = 2,
-    cost = 12,
+    cost = 8,
     pos = {x=0,y=0},
     unlocked = true,
     discovered = true,
@@ -460,8 +495,8 @@ SMODS.Joker {
             localize { type = 'name_text', set = 'Tag', key = 'tag_juggle' } } }
     end,
     pos = {x=0,y=0}, 
-    cost = 6,
-    rarity = 1,
+    cost = 8,
+    rarity = 3,
     unlocked = true,
     discovered = true,
     atlas = 'fgc_crackinatkins',
@@ -864,7 +899,7 @@ SMODS.Joker {
     loc_txt = {
         ['name'] = 'Active Tag',
         ['text'] = {
-            [1] = 'Retriggers the next activated {C:attention}Joker{}'
+            [1] = 'Retriggers the next series of {C:attention}Joker{} activations'
         },
         ['unlock'] = {
             [1] = 'Unlocked by default.'

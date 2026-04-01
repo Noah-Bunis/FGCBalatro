@@ -1,5 +1,4 @@
 SMODS.Atlas{
-    -- These two lines tell it to replace the logo
     key = "balatro",
     prefix_config = { key = false },
 
@@ -180,5 +179,11 @@ SMODS.Atlas {
 SMODS.Atlas {
     key = "fgc_punk",
     path = "fgc_j_punk.png",
+    px = 71, py = 95
+}
+
+SMODS.Atlas {
+    key = "fgc_go1",
+    path = "fgc_j_go1.png",
     px = 71, py = 95
 }
